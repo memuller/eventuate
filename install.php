@@ -50,7 +50,7 @@ function em_create_events_table() {
 		event_start_date date NOT NULL,
 		event_end_date date NULL, 
 		event_notes text NULL DEFAULT NULL,
-		event_rsvp bool NOT NULL DEFAULT 0,
+		event_rsvp bool NOT NULL DEFAULT 1,
 		event_seats int(5),
 		event_contactperson_id bigint(20) unsigned NULL,  
 		location_id bigint(20) unsigned NOT NULL,
