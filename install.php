@@ -11,11 +11,11 @@ define('EM_OLD_CATEGORIES_TABLE', 'dbem_categories'); //TABLE NAME
 function em_install() {
 	$old_version = get_option('dbem_version');
 	if( EM_VERSION > $old_version || $old_version == '' ){
-	 	// Creates the events table if necessary
+		// Creates the events table if necessary
 		em_create_events_table(); 
 		em_create_locations_table();
-	  	em_create_bookings_table();
-	  	em_create_people_table();
+		em_create_bookings_table();
+		em_create_people_table();
 		em_create_categories_table();
 		em_add_options();
 		
@@ -52,12 +52,12 @@ function em_create_events_table() {
 		event_notes text NULL DEFAULT NULL,
 		event_rsvp bool NOT NULL DEFAULT 1,
 		event_seats int(5),
-                event_cost float DEFAULT NULL,
+		event_cost float DEFAULT NULL,
 		event_contactperson_id bigint(20) unsigned NULL,  
 		location_id bigint(20) unsigned NOT NULL,
 		recurrence_id bigint(20) unsigned NULL,
-  		event_category_id bigint(20) unsigned NULL DEFAULT NULL,
-  		event_attributes text NULL,
+		event_category_id bigint(20) unsigned NULL DEFAULT NULL,
+		event_attributes text NULL,
 		recurrence bool NOT NULL DEFAULT 0,
 		recurrence_interval int(4) NULL DEFAULT NULL,
 		recurrence_freq tinytext NULL DEFAULT NULL,
@@ -126,7 +126,7 @@ function em_create_bookings_table() {
 		event_id bigint(20) unsigned NOT NULL,
 		person_id bigint(20) unsigned NOT NULL, 
 		booking_seats int(5) NOT NULL DEFAULT 1,
-                booking_payment_status, int(5) NOT NULL DEFAULT 0,
+		booking_payment_status, int(5) NOT NULL DEFAULT 0,
 		booking_comment text DEFAULT NULL,
 		booking_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		UNIQUE KEY  (booking_id)
@@ -144,16 +144,16 @@ function em_create_people_table() {
 		person_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		person_name tinytext NOT NULL, 
 		person_email tinytext NOT NULL,
-                person_zip tinytext NOT NULL,
-                person_num tinytext NOT NULL,
-                person_compl tinytext NOT NULL,
-                person_district tinytext NOT NULL,
-                person_city tinytext NOT NULL,
-                person_uf tinytext NOT NULL,
-                person_country tinytext NOT NULL,
-                person_ddd tinytext NOT NULL,
-                person_phone tinytext NOT NULL,
-                auth_token text NULL DEFAULT NULL,
+		person_zip tinytext NOT NULL,
+		person_num tinytext NOT NULL,
+		person_compl tinytext NOT NULL,
+		person_district tinytext NOT NULL,
+		person_city tinytext NOT NULL,
+		person_uf tinytext NOT NULL,
+		person_country tinytext NOT NULL,
+		person_ddd tinytext NOT NULL,
+		person_phone tinytext NOT NULL,
+		auth_token text NULL DEFAULT NULL,
 		UNIQUE KEY (person_id)
 		) DEFAULT CHARSET=utf8 ;";
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -242,7 +242,7 @@ function em_add_options() {
 		add_option($key, $value);
 	}
 		
-}     
+}
 
 function em_create_events_page(){
 	global $wpdb,$current_user;	
@@ -317,8 +317,8 @@ function em_migrate_to_new_tables(){
 				'recurrence' => 1,
 				'recurrence_interval' => $recurrence_raw['recurrence_interval'],
 				'recurrence_freq' => $recurrence_raw['recurrence_freq'],
-		   		'recurrence_byday' => $recurrence_raw['recurrence_byday'],
-		   		'recurrence_byweekno' => $recurrence_raw['recurrence_byweekno']
+				'recurrence_byday' => $recurrence_raw['recurrence_byday'],
+				'recurrence_byweekno' => $recurrence_raw['recurrence_byweekno']
 			);
 			$result = $wpdb->insert($table_name, $recurrence, array('%d','%s','%s','%s','%s','%s','%s','%d','%d','%d','%d','%d','%d'));
 			//Then change the id of all the events with recurrence_id
