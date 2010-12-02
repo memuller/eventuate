@@ -153,6 +153,7 @@ function em_create_people_table() {
                 person_country tinytext NOT NULL,
                 person_ddd tinytext NOT NULL,
                 person_phone tinytext NOT NULL,
+                auth_token text NULL DEFAULT NULL,
 		UNIQUE KEY (person_id)
 		) DEFAULT CHARSET=utf8 ;";
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
