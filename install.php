@@ -143,7 +143,15 @@ function em_create_people_table() {
 		person_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		person_name tinytext NOT NULL, 
 		person_email tinytext NOT NULL,
-		person_phone tinytext NOT NULL,
+                person_zip tinytext NOT NULL,
+                person_num tinytext NOT NULL,
+                person_compl tinytext NOT NULL,
+                person_district tinytext NOT NULL,
+                person_city tinytext NOT NULL,
+                person_uf tinytext NOT NULL,
+                person_country tinytext NOT NULL,
+                person_ddd tinytext NOT NULL,
+                person_phone tinytext NOT NULL,
 		UNIQUE KEY (person_id)
 		) DEFAULT CHARSET=utf8 ;";
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
