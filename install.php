@@ -125,7 +125,7 @@ function em_create_bookings_table() {
 		booking_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		event_id bigint(20) unsigned NOT NULL,
 		person_id bigint(20) unsigned NOT NULL, 
-		booking_seats int(5) NOT NULL,
+		booking_seats int(5) NOT NULL DEFAULT 1,
 		booking_comment text DEFAULT NULL,
 		booking_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		UNIQUE KEY  (booking_id)
