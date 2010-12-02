@@ -78,22 +78,11 @@ function em_add_booking_form() {
 					<tr><th scope='row'><?php _e('Name', 'dbem') ?>:</th><td><input type='text' name='person_name' value='<?php echo $_POST['person_name'] ?>'/></td></tr>
 					<tr><th scope='row'><?php _e('E-Mail', 'dbem') ?>:</th><td><input type='text' name='person_email' value='<?php echo $_POST['person_email'] ?>'/></td></tr>
 					<tr><th scope='row'><?php _e('Phone number', 'dbem') ?>:</th><td><input type='text' name='person_phone' value='<?php echo $_POST['person_phone'] ?>'/></td></tr>
-					<tr>
-						<th scope='row'><?php _e('Seats', 'dbem') ?>:</th>
-						<td>
-							<select name='booking_seats' >
-								<?php
-								foreach($booked_places_options as $option) {
-									echo $option ."\n";                  
-								}
-								?>
-							</select>
-						</td>
-					</tr>
 					<tr><th scope='row'><?php _e('Comment', 'dbem') ?>:</th><td><textarea name='booking_comment'><?php echo $_POST['booking_comment'] ?></textarea></td></tr>
 			</table>
 			<p>
 				<input type='submit' value='<?php _e('Send your booking', 'dbem') ?>'/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type='hidden' name="booking_seats" value="1"
 			 	<input type='hidden' name='eventAction' value='add_booking'/>
 			 	<input type='hidden' name='event_id' value='<?php echo $EM_Event->id; ?>'/>
 			</p>  
