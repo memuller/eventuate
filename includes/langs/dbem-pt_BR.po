@@ -16,6 +16,9 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "RSVP"
+msgstr "Reservas"
+
 msgid "Displays the booking add form for a given event"
 msgstr "Exibe um formulário p/ reservas de um evento"
 
@@ -31,8 +34,8 @@ msgstr "Para concluir sua reserva, você será enviado ao PagSeguro, aonde irá 
 msgid "You are now on this event waiting list."
 msgstr "Você agora está na lista de espera deste evento."
 
-msgid "Booking cost: %s"
-msgstr "Investimento: %s"
+msgid "Booking cost:"
+msgstr "Investimento:"
 
 msgid "Make payment"
 msgstr "Realizar pagamento"
@@ -404,7 +407,7 @@ msgstr "Formato do texto aparecendo na nuvem de mapas página de eventos.<br />S
 
 #: dbem_events.php:368
 msgid "RSVP and bookings"
-msgstr "RSVP e reservas"
+msgstr "Convites e reservas"
 
 #: dbem_events.php:372
 msgid "Default contact person"
