@@ -27,6 +27,7 @@ class EM_Event extends EM_Object{
 		'event_notes' => array( 'name'=>'notes', 'type'=>'%s' ),
 		'event_rsvp' => array( 'name'=>'rsvp', 'type'=>'%d' ),
 		'event_seats' => array( 'name'=>'seats', 'type'=>'%d' ),
+		'event_cost' => array('name' => 'cost' , 'type' => '%d' ),
 		'event_contactperson_id' => array( 'name'=>'contactperson_id', 'type'=>'%d' ),
 		'location_id' => array( 'name'=>'location_id', 'type'=>'%d' ),
 		'recurrence_id' => array( 'name'=>'recurrence_id', 'type'=>'%d' ),
