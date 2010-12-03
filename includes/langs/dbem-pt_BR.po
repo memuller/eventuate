@@ -1,14 +1,10 @@
-msgid "Displays the booking add form for a given event"
-msgstr "Exibe um formulário p/ reservas de um evento"
-
-
 msgid ""
 msgstr ""
 "Project-Id-Version: events-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-07 19:11+0100\n"
-"PO-Revision-Date: 2010-02-20 03:34-0300\n"
-"Last-Translator: Heavyworks <heavyworks@heavyworks.net>\n"
+"PO-Revision-Date: 2010-12-03 14:10-0300\n"
+"Last-Translator: Matheus Elias Muller <hello@memuller.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +15,27 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
+
+msgid "Displays the booking add form for a given event"
+msgstr "Exibe um formulário p/ reservas de um evento"
+
+msgid "Make your reservation"
+msgstr "Faça sua reserva"
+
+msgid "Add booking"
+msgstr "Adicionar reserva"
+
+msgid "In order to confirm your reservation, you will now be redirected to PagSeguro, where you can make your payment."
+msgstr "Para concluir sua reserva, você será enviado ao PagSeguro, aonde irá realizar o pagamento do evento da forma que preferir."
+
+msgid "You are now on this event waiting list."
+msgstr "Você agora está na lista de espera deste evento."
+
+msgid "Booking cost: %s"
+msgstr "Investimento: %s"
+
+msgid "Make payment"
+msgstr "Realizar pagamento"
 
 #: dbem-recurrence.php:225
 msgid "Monday"
@@ -1296,34 +1313,47 @@ msgstr "Contato"
 #~ msgstr ""
 #~ "Una descrizione del luogo. In questo campo è possibile inserire qualsiasi "
 #~ "tipo di informazione."
+
 #~ msgid "end date before begin date"
 #~ msgstr "la data finale precede quella iniziale"
+
 #~ msgid "Example:"
 #~ msgstr "Esempio: "
+
 #~ msgid "Example: 2008-11-28"
 #~ msgstr "Esempio: 2008-11-28"
+
 #~ msgid "The format the text appearing in the map cloud."
 #~ msgstr "Il fomato del testo del fumetto che appare sulla mappa."
+
 #~ msgid "Follow the previous formatting instructions."
 #~ msgstr "Seguire le istruzioni di formattazione precedenti."
+
 #~ msgid "here"
 #~ msgstr "questa pagina"
+
 #~ msgid "The format of a single location page title."
 #~ msgstr "Il formato del titolo della pagina di un singolo luogo."
 
 #, fuzzy
 #~ msgid "Location picture"
 #~ msgstr "Luogo"
+
 #~ msgid "M_Monday_initial"
 #~ msgstr "L"
+
 #~ msgid "T_Tuesday_initial"
 #~ msgstr "M"
+
 #~ msgid "F_Friday_initial"
 #~ msgstr "V"
+
 #~ msgid "S_Sunday_initial"
 #~ msgstr "D"
+
 #~ msgid "The format of any events in a list."
 #~ msgstr "Il formato di ciascun evento della lista."
+
 #~ msgid ""
 #~ "Insert one or more of the following placeholders: <code>#_NAME</code>, "
 #~ "<code>#_LOCATION</code>, <code>#_ADDRESS</code>, <code>#_TOWN</code>, "
@@ -1336,6 +1366,7 @@ msgstr "Contato"
 #~ "<code>#_NOTES</code>. Utilizzare <code>#_LINKEDNAME</code> per il nome "
 #~ "dell'evento con un link alla pagina corrispondente. Utilizzare #_URL per "
 #~ "visualizzare l'URL dell'evento e creare link personalizzati."
+
 #~ msgid ""
 #~ "To insert date and time values, use <a href=\"http://www.php.net/manual/"
 #~ "en/function.date.php\">PHP time format characters</a>  with a # symbol "
@@ -1344,31 +1375,41 @@ msgstr "Contato"
 #~ "Per inserire valori di data e ora, utilizzare i <a href=\"http://www.php."
 #~ "net/manual/it/function.date.php\">caratteri di stringa formato PHP</a>  "
 #~ "anteponendo ad essi un #, ad esempio #m. #M, #j, etc. "
+
 #~ msgid "Use HTML tags as <code>li</code>, <code>br</code>, etc."
 #~ msgstr ""
 #~ "Utilizzare liberamente tag HTML come <code>li</code>, <code>br</code>, "
 #~ "ecc."
+
 #~ msgid "Use <code>#_MAP</code> to insert a map."
 #~ msgstr "Utilizzare <code>#_MAP</code> per inserire una mappa."
+
 #~ msgid "The format of the description of each item in the events RSS feed."
 #~ msgstr "Il formato della descrizione di ciascun elemento nel feed RSS."
+
 #~ msgid "Time"
 #~ msgstr "Ora"
+
 #~ msgid "Latitude"
 #~ msgstr "Latitudine"
+
 #~ msgid "Longitude"
 #~ msgstr "Longitudine"
+
 #~ msgid "Are you sure?"
 #~ msgstr "Sei sicuro?"
+
 #~ msgid "Delete"
 #~ msgstr "Elimina"
+
 #~ msgid "Notes"
 #~ msgstr "Note"
+
 #~ msgid ""
 #~ "You are about to delete this event.\\n  'Cancel' to stop, 'OK' to delete."
 #~ msgstr ""
 #~ "Stai per cancellare questo evento.\\n  \\'Cancel\\' per annullare "
 #~ "l'opererazione, \\'Ok\\' per cancellare."
+
 #~ msgid "Widget Title"
 #~ msgstr "Titolo"
-
