@@ -145,6 +145,7 @@ function em_create_people_table() {
 		person_name tinytext NOT NULL, 
 		person_email tinytext NOT NULL,
 		person_zip tinytext NOT NULL,
+		person_address text NOT NULL,
 		person_num tinytext NOT NULL,
 		person_compl tinytext NOT NULL,
 		person_district tinytext NOT NULL,
