@@ -75,14 +75,44 @@ function em_add_booking_form() {
 		
 		<form id='dbem-rsvp-form' name='booking-form' method='post' action='<?php echo $destination ?>'>
 				<table class='dbem-rsvp-form'>
-					<tr><th scope='row'><?php _e('Name', 'dbem') ?>:</th><td><input type='text' name='person_name' value='<?php echo $_POST['person_name'] ?>'/></td></tr>
-					<tr><th scope='row'><?php _e('E-Mail', 'dbem') ?>:</th><td><input type='text' name='person_email' value='<?php echo $_POST['person_email'] ?>'/></td></tr>
-					<tr><th scope='row'><?php _e('Phone number', 'dbem') ?>:</th><td><input type='text' name='person_phone' value='<?php echo $_POST['person_phone'] ?>'/></td></tr>
+					<tr><th scope='row'><?php _e('Name', 'dbem') ?>:</th>
+						<td><input type='text' name='person_name' value='<?php echo $_POST['person_name'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('E-Mail', 'dbem') ?>:</th>
+						<td><input type='text' name='person_email' value='<?php echo $_POST['person_email'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('Address', 'dbem') ?>:</th>
+						<td><input type='text' name='person_address' value='<?php echo $_POST['person_address'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('Number', 'dbem') ?>:</th>
+						<td><input type='text' name='person_num' value='<?php echo $_POST['person_num'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('Complement', 'dbem') ?>:</th>
+						<td><input type='text' name='person_compl' value='<?php echo $_POST['person_compl'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('District', 'dbem') ?>:</th>
+						<td><input type='text' name='person_district' value='<?php echo $_POST['person_district'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('City', 'dbem') ?>:</th>
+						<td><input type='text' name='person_city' value='<?php echo $_POST['person_city'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('UF', 'dbem') ?>:</th>
+						<td><input type='text' name='person_uf' value='<?php echo $_POST['person_uf'] ?>' size='2'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('Zip', 'dbem') ?>:</th>
+						<td><input type='text' name='person_zip' value='<?php echo $_POST['person_zip'] ?>'/></td>
+					</tr>
+					<tr><th scope='row'><?php _e('Phone number', 'dbem') ?>:</th>
+						<td><input type='text' name='person_ddd' value='<?php echo $_POST['person_ddd'] ?>' size='2' />
+						<input type='text' name='person_phone' value='<?php echo $_POST['person_phone'] ?>'/>
+						</td>
+					</tr>
 					<tr><th scope='row'><?php _e('Comment', 'dbem') ?>:</th><td><textarea name='booking_comment'><?php echo $_POST['booking_comment'] ?></textarea></td></tr>
 			</table>
 			<p>
 				<input type='submit' value='<?php _e('Send your booking', 'dbem') ?>'/>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type='hidden' name="booking_seats" value="1"
+				<input type='hidden' name="booking_seats" value="1" />
+				<input type='hidden' name='person_country' value='BRA' />
 			 	<input type='hidden' name='eventAction' value='add_booking'/>
 			 	<input type='hidden' name='event_id' value='<?php echo $EM_Event->id; ?>'/>
 			</p>  
