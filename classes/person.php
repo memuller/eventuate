@@ -11,7 +11,15 @@ class EM_Person extends EM_Object{
 		'person_id' => array('name'=>'id','type'=>'%d'), 
 		'person_name' => array('name'=>'name','type'=>'%s'), 
 		'person_email' => array('name'=>'email','type'=>'%s'),
-		'person_phone' => array('name'=>'phone','type'=>'%s')
+                'person_address' => array('name'=>'address','type'=>'%s'),
+                'person_num' => array('name'=>'num','type'=>'%s'),
+                'person_compl' => array('name'=>'compl','type'=>'%s'),
+                'person_district' => array('name'=>'district','type'=>'%s'),
+                'person_city' => array('name'=>'city','type'=>'%s'),
+                'person_uf' => array('name'=>'uf','type'=>'%s'),
+		'person_country' => array('name'=>'country','type'=>'%s'),
+                'person_ddd' => array('name'=>'ddd','type'=>'%s'),
+                'person_phone' => array('name'=>'phone','type'=>'%s'),
 	);
 	var $required_fields = array('person_id', 'person_name', 'person_email', 'person_phone');
 	var $feedback_message = "";
