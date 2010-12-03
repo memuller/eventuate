@@ -58,6 +58,7 @@ include_once("template-tags-depreciated.php"); //To depreciate
 include_once("widgets/events.php");
 include_once("widgets/locations.php");
 include_once("widgets/calendar.php");
+include_once("widgets/booking.php");
 //Classes
 include_once('classes/booking.php');
 include_once('classes/bookings.php');
