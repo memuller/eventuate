@@ -495,6 +495,9 @@ class EM_Event extends EM_Object{
 				case '#_SPACES':
 					$replace = $this->seats;
 					break;
+				case "#_COST":
+					$replace = ( ! $this->cost ) ? __("Free", 'dbem') : $this ->cost ;
+					break ;  
 				//Contact Person
 				case '#_CONTACTNAME':
 				case '#_CONTACTPERSON': //Depreciated (your call, I think name is better)
