@@ -28,8 +28,9 @@ class EM_Events extends EM_Object {
 			";
 			$results = $wpdb->get_results($sql);
 			$events = array();
+			
 			foreach($results as $result){
-				$events[$result['event_id']] = new EM_Event($result);
+				$events[$result->event_id] = new EM_Event($result);
 			}
 			return $events; //We return all the events matched as an EM_Event array. 
 		}
