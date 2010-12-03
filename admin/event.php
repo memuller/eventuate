@@ -158,9 +158,15 @@ function dbem_event_form( $title ) {
 								<h3 class='hndle'><span><?php _e('RSVP','dbem'); ?></span></h3>
 								<div class="inside">
 									<p>
-										<input id="rsvp-checkbox" name='event_rsvp' value='1' type='checkbox' <?php echo ($EM_Event->rsvp) ? 'checked="checked"' : ''; ?> />
+										<input id="rsvp-checkbox" name='event_rsvp' value='1' type='checkbox' <?php echo (!($EM_Event->rvsp) || $EM_Event->rsvp != 0) ? 'checked="checked"' : ''; ?> />
 										<?php _e ( 'Enable registration for this event', 'dbem' )?>
 									</p>
+									<?php if( !($EM_Event->rsvp) || $EM_Event->rsvp != '0') {?>
+										<p>
+											<?php echo __("Booking cost:", 'dbem')." R$"; ?>
+											<input id='rsvp-cost' name='event_cost' value='<?php echo $EM_Event->cost ?>' size='5'/>
+										</p>
+									<?php } ?>
 									<div id='rsvp-data'>
 										<?php 
 										if ($EM_Event->contactperson_id  != NULL){

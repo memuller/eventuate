@@ -19,17 +19,17 @@ class EM_Booking_Widget extends WP_Widget {
 	    echo $args['before_title'];
 	    echo $instance['title'];
 	    echo $args['after_title'];
-		
 		echo em_add_booking_form();
 	    
 		echo $args['after_widget'];
+		
     }
 
     /** @see WP_Widget::update */
     function update($new_instance, $old_instance) {
 		$events = EM_Events::get() ;
 		$instance = $old_instance ;
-		$instance['title'] = ($new_instance['title'] <> '' ) ? $new_instance['title'] : __('Make your booking', 'dbem') ;
+		$instance['title'] = ($new_instance['title'] <> '' ) ? $new_instance['title'] : __('Make your reservation', 'dbem') ;
 		$instance['event_id'] = $new_instance['event_id'] ;
     	return $instance;
     }

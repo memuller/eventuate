@@ -136,6 +136,7 @@ class EM_Event extends EM_Object{
 		$this->end_date = ($_POST ['event_end_date'] == '') ? $this->start_date : $_POST ["event_end_date"]; 
 		$this->rsvp = ( $_POST ['event_rsvp'] == 1 ) ? 1:0;
 		$this->seats = ( is_numeric($_POST ['event_seats']) ) ? $_POST ['event_seats']:0;
+		$this->cost = (is_numeric($_POST['event_cost']) ) ? (int) $_POST['event_cost'] : null ;
 		$this->notes = stripslashes ( $_POST ['content'] ); //WP TinyMCE field
 		//Sort out time
 		//TODO make time handling less painful
