@@ -1,3 +1,7 @@
+msgid "Displays the booking add form for a given event"
+msgstr "Exibe um formulário p/ reservas de um evento"
+
+
 msgid ""
 msgstr ""
 "Project-Id-Version: events-manager\n"
