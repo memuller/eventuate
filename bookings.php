@@ -4,8 +4,6 @@ global $dbem_form_messages_booking_delete;
 $dbem_form_messages_booking_delete = array();
 global $dbem_form_messages_booking_add;
 $dbem_form_messages_booking_add = array();
-global $current_booking_id ; 
-$current_booking_id = null ; 
 
 /**
  * Check if there's any actions to take for bookings

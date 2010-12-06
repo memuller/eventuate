@@ -76,7 +76,7 @@ class EM_Booking extends EM_Object{
 		}
 		
 		global $current_booking_id ; 
-		$current_booking_id = $this->id ; 
+		$current_booking_id = $this->id ;
 		
 		//Give feedback on result
 		if( count($this->errors) == 0 ){
