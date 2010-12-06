@@ -72,6 +72,7 @@ include_once("classes/mailer.php") ;
 include_once('classes/map.php');
 include_once('classes/people.php');
 include_once('classes/person.php');
+include_once('classes/pagseguro.php');
 //Admin Files
 if( is_admin() ){
 	include_once('admin/admin.php');
@@ -101,7 +102,7 @@ define("EM_IMAGE_UPLOAD_DIR", "wp-content/uploads/locations-pics");
        
 // DEBUG constant for developing
 // if you are hacking this plugin, set to TRUE, a log will show in admin pages
-define('DEBUG', false);
+define('DEBUG', true);
 
 // FILTERS
 // filters for general events field (corresponding to those of  "the _title")

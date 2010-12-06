@@ -12,6 +12,7 @@ class EM_Booking extends EM_Object{
 		'event_id' => array('name'=>'event_id','type'=>'%d'),
 		'person_id' => array('name'=>'person_id','type'=>'%d'),
 		'booking_seats' => array('name'=>'seats','type'=>'%d'),
+		'booking_payment_status' => array('name' => 'payment_status', 'type' => '%d'),
 		'booking_comment' => array('name'=>'comment','type'=>'%s')
 	);
 	var $person;
@@ -73,6 +74,9 @@ class EM_Booking extends EM_Object{
 		if( $result === false ){
 			$this->errors[] = __('There was a problem saving the booking.', 'dbem');
 		}
+		
+		global $current_booking_id ; 
+		$current_booking_id = $this->id ; 
 		
 		//Give feedback on result
 		if( count($this->errors) == 0 ){

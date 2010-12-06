@@ -4,6 +4,8 @@ global $dbem_form_messages_booking_delete;
 $dbem_form_messages_booking_delete = array();
 global $dbem_form_messages_booking_add;
 $dbem_form_messages_booking_add = array();
+global $current_booking_id ; 
+$current_booking_id = null ; 
 
 /**
  * Check if there's any actions to take for bookings
@@ -51,7 +53,7 @@ add_action('init','em_actions_bookings');
  * @return string
  */
 function em_add_booking_form() {                
-	global $dbem_form_messages_booking_add, $EM_Event;
+	global $dbem_form_messages_booking_add, $EM_Event, $current_booking_id;
 	$destination = "?".$_SERVER['QUERY_STRING']."#dbem-rsvp";
 	ob_start();
 	?>
@@ -59,13 +61,17 @@ function em_add_booking_form() {
 		<a name="dbem-rsvp"></a>
 		<h3><?php _e('Book now!','dbem') ?></h3>
 		
-		<?php if( !empty($dbem_form_messages_booking_add['success']) ) : ?>
-		<div class='dbem-rsvp-message-success'><?php echo $dbem_form_messages_booking_add['success'] ?></div>
-		<?php elseif( !empty($dbem_form_messages_booking_add['error']) ) : ?>
-		<div class='dbem-rsvp-message-error'><?php echo $dbem_form_messages_booking_add['error'] ?></div>
-		<?php elseif( !empty($dbem_form_messages_booking_add['message']) ) : ?>
-		<div class='dbem-rsvp-message'><?php echo $dbem_form_messages_booking_add['message'] ?></div>
-		<?php endif; ?>
+		<?php if( !empty($dbem_form_messages_booking_add['success']) ) { 
+			// Booking was sucessfull, let's now go to the payment.
+			$payment = new Payment($current_booking_id) ; 
+			echo $payment->invite_link();
+			return ob_get_clean(); 
+		} else {
+			if ( !empty($dbem_form_messages_booking_add['error']) ) { ?>
+				<div class='dbem-rsvp-message-error'><?php echo $dbem_form_messages_booking_add['error'] ?></div>
+			<?php } elseif( !empty($dbem_form_messages_booking_add['message']) ) { ?>
+				<div class='dbem-rsvp-message'><?php echo $dbem_form_messages_booking_add['message'] ?></div>
+			<?php }  ?>
 		
 		<form id='dbem-rsvp-form' name='booking-form' method='post' action='<?php echo $destination ?>'>
 				<table class='dbem-rsvp-form'>
@@ -154,6 +160,7 @@ function em_add_booking_form() {
 	</script>
 	<?php
 	return ob_get_clean();	
+	}
 }
 
 /**
