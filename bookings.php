@@ -56,13 +56,11 @@ function em_add_booking_form() {
 	ob_start();
 	?>
 	<div id="dbem-rsvp">
-		<a name="dbem-rsvp"></a>
-		<h3><?php _e('Book now!','dbem') ?></h3>
-		
+		<a name="dbem-rsvp"></a>		
 		<?php if( !empty($dbem_form_messages_booking_add['success']) ) { 
 			// Booking was sucessfull, let's now go to the payment.
 			$payment = new Payment($current_booking_id) ; 
-			echo $payment->invite_link();
+			$payment->invite_link();
 			return ob_get_clean(); 
 		} else {
 			if ( !empty($dbem_form_messages_booking_add['error']) ) { ?>
