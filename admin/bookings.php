@@ -1,13 +1,13 @@
-<?php 
+<?php
 /**
  * Check if there's any actions to take for bookings
  * @return null
  */
 function dbem_admin_actions_bookings() {
-  	global $dbem_form_add_message;   
-	global $dbem_form_delete_message; 
+  	global $dbem_form_add_message;
+	global $dbem_form_delete_message;
 	global $wpdb;
-		
+
   	//DELETE Bookings
 	if( isset($_POST['secondaryAction']) && $_POST['secondaryAction'] == 'delete_bookings' ){
 		if( EM_Object::array_is_numeric($_GET['bookings']) && count($_GET['bookings']) > 0 ){
@@ -25,10 +25,10 @@ add_action('init','dbem_admin_actions_bookings');
  * @return null
  */
 function dbem_bookings_table() {
-	global $EM_Event; 
+	global $EM_Event;
 	?>
 	<form id='bookings-filter' method='get' action='<?php bloginfo('wpurl') ?>/wp-admin/edit.php'>
-		<input type='hidden' name='page' value='events-manager/events-manager.php'/>
+		<input type='hidden' name='page' value='eventuate/eventuate.php'/>
 		<input type='hidden' name='action' value='edit_event'/>
 		<input type='hidden' name='event_id' value='<?php echo $EM_Event->id ?>'/>
 		<input type='hidden' name='secondaryAction' value='delete_bookings'/>
@@ -45,7 +45,7 @@ function dbem_bookings_table() {
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
+					<?php
 					foreach ($EM_Event->get_bookings()->bookings as $EM_Booking) {
 						?>
 						<tr>
@@ -63,7 +63,7 @@ function dbem_bookings_table() {
 					<tr>
 						<th scope='row' colspan='4'>Booked seats:</th>
 						<td class='booking-result' id='booked-seats'><?php echo $EM_Event->get_bookings()->get_booked_seats() ?></td>
-					</tr>            
+					</tr>
 					<tr>
 						<th scope='row' colspan='4'>Available seats:</th>
 						<td class='booking-result' id='available-seats'><?php echo $EM_Event->get_bookings()->get_booked_seats() ?></td>

@@ -26,14 +26,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-/*************************************************/ 
+/*************************************************/
 
 /*
  * Some random notes
- * 
- * - for consistency and easier modifications I propose we use a common coding practice Davide... ieally, $event and $EM_Event should always be only variables used to reference an EM_Event object, no others. 
+ *
+ * - for consistency and easier modifications I propose we use a common coding practice Davide... ieally, $event and $EM_Event should always be only variables used to reference an EM_Event object, no others.
  * $EM_Event is a global variable, $event has a local scope. same for $events and $EM_Events, they should be an array of EM_Event objects. what do u think?
- * - Would be cool for functions where we pass a reference for something (event, location, category, etc) it could be either the ID, or the object itself. Makes things flexible, not hard to implement, am doing it already (see EM_Events::get) 
+ * - Would be cool for functions where we pass a reference for something (event, location, category, etc) it could be either the ID, or the object itself. Makes things flexible, not hard to implement, am doing it already (see EM_Events::get)
  */
 //Features
 //TODO Better data validation, both into database and outputting info (http://codex.wordpress.org/Data_Validation)
@@ -42,8 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //FIXME when saving event, select screen has reversed order of events
 
 
-// INCLUDES 
-include_once('classes/object.php'); //Base object, any files below may depend on this 
+// INCLUDES
+include_once('classes/object.php'); //Base object, any files below may depend on this
 //Template Tags & Template Logic
 include_once("ajax.php");
 include_once("bookings.php");
@@ -91,15 +91,15 @@ if( is_admin() ){
 define('EM_VERSION', 0.1); //self expanatory
 define('EM_CATEGORIES_TABLE', 'em_categories'); //TABLE NAME
 define('EM_EVENTS_TABLE','em_events'); //TABLE NAME
-define('EM_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME   
-define('EM_LOCATIONS_TABLE','em_locations'); //TABLE NAME  
+define('EM_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME
+define('EM_LOCATIONS_TABLE','em_locations'); //TABLE NAME
 define('EM_BOOKINGS_TABLE','em_bookings'); //TABLE NAME
 define('EM_PEOPLE_TABLE','em_people'); //TABLE NAME
 define('EM_MIN_CAPABILITY', 'edit_posts');	// Minimum user level to access calendars
-define('EM_SETTING_CAPABILITY', 'activate_plugins');	// Minimum user level to access calendars   
+define('EM_SETTING_CAPABILITY', 'activate_plugins');	// Minimum user level to access calendars
 define("EM_IMAGE_UPLOAD_DIR", "wp-content/uploads/locations-pics");
 //TODO reorganize how defaults are created, e.g. is it necessary to create false entries? They are false by default... less code, but maybe not verbose enough...
-       
+
 // DEBUG constant for developing
 // if you are hacking this plugin, set to TRUE, a log will show in admin pages
 define('DEBUG', true);
@@ -109,7 +109,7 @@ define('DEBUG', true);
 add_filter('dbem_general', 'wptexturize');
 add_filter('dbem_general', 'convert_chars');
 add_filter('dbem_general', 'trim');
-// filters for the notes field  (corresponding to those of  "the _content")   
+// filters for the notes field  (corresponding to those of  "the _content")
 add_filter('dbem_notes', 'wptexturize');
 add_filter('dbem_notes', 'convert_smilies');
 add_filter('dbem_notes', 'convert_chars');
@@ -120,15 +120,15 @@ add_filter('dbem_general_rss', 'strip_tags');
 add_filter('dbem_general_rss', 'ent2ncr', 8);
 add_filter('dbem_general_rss', 'wp_specialchars');
 // RSS content filter
-add_filter('dbem_notes_rss', 'convert_chars', 8);    
+add_filter('dbem_notes_rss', 'convert_chars', 8);
 add_filter('dbem_notes_rss', 'ent2ncr', 8);
 // Notes map filters
 add_filter('dbem_notes_map', 'convert_chars', 8);
 add_filter('dbem_notes_map', 'js_escape');
 
-// LOCALIZATION  
+// LOCALIZATION
 // Localised date formats as in the jquery UI datepicker plugin
-//TODO Sort out dates, (ref: output idea) 
+//TODO Sort out dates, (ref: output idea)
 load_plugin_textdomain('dbem', false, dirname( plugin_basename( __FILE__ ) ).'/includes/langs');
 
 /**
@@ -149,11 +149,11 @@ function em_load_event(){
 		$EM_Location = new EM_Location($_REQUEST['location_id']);
 	}
 	$EM_Mailer = new EM_Mailer();
-	define('EM_URI', get_permalink(get_option("dbem_events_page"))); //PAGE URI OF EM 
+	define('EM_URI', get_permalink(get_option("dbem_events_page"))); //PAGE URI OF EM
 	define('EM_RSS_URI', get_bloginfo('wpurl')."/?dbem_rss=main"); //RSS PAGE URI
 }
 add_action('init', 'em_load_event', 1);
-                   
+
 /**
  * Settings link in the plugins page menu
  * @param array $links
@@ -174,13 +174,13 @@ function em_set_plugin_meta($links, $file) {
 add_filter( 'plugin_row_meta', 'em_set_plugin_meta', 10, 2 );
 
 
-// Create the Manage Events and the Options submenus  
+// Create the Manage Events and the Options submenus
 function em_create_events_submenu () {
 	if(function_exists('add_submenu_page')) {
 		//TODO Add flexible permissions
 	  	add_object_page(__('Events', 'dbem'),__('Events', 'dbem'),EM_MIN_CAPABILITY,__FILE__,'dbem_events_subpanel', '../wp-content/plugins/eventuate/includes/images/calendar-16.png');
 	   	// Add a submenu to the custom top-level menu:
-	   		$plugin_pages = array(); 
+	   		$plugin_pages = array();
 			$plugin_pages[] = add_submenu_page(__FILE__, __('Edit'),__('Edit'),EM_MIN_CAPABILITY,__FILE__,'dbem_events_subpanel');
 			$plugin_pages[] = add_submenu_page(__FILE__, __('Add new', 'dbem'), __('Add new','dbem'), EM_MIN_CAPABILITY, 'new_event', "dbem_new_event_page");
 			$plugin_pages[] = add_submenu_page(__FILE__, __('Locations', 'dbem'), __('Locations', 'dbem'), EM_MIN_CAPABILITY, 'locations', "dbem_locations_page");
@@ -199,18 +199,18 @@ add_action('admin_menu','em_create_events_submenu');
 
 
 /**
- * Enqueing public scripts and styles 
+ * Enqueing public scripts and styles
  */
 function em_enqueue_public() {
 	wp_enqueue_script ( 'jquery' ); //make sure we have jquery loaded
-	wp_enqueue_style('events-manager', WP_PLUGIN_URL.'/eventuate/includes/css/events_manager.css'); //main css
+	wp_enqueue_style('eventuate', WP_PLUGIN_URL.'/eventuate/includes/css/events_manager.css'); //main css
 }
 add_action ( 'template_redirect', 'em_enqueue_public' );
 
 /**
  * Add a link to the favourites menu
  * @param array $actions
- * @return multitype:string 
+ * @return multitype:string
  */
 function em_favorite_menu($actions) {
 	// add quick link to our favorite plugin

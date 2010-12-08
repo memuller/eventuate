@@ -13,21 +13,21 @@ function dbem_new_event_page() {
  */
 function dbem_event_form( $title ) {
 	global $EM_Event;
-	global $localised_date_formats;    
+	global $localised_date_formats;
 	$use_select_for_locations = get_option('dbem_use_select_for_locations');
 	// change prefix according to event/recurrence
-	$pref = "event_";	
-	$form_destination = "edit.php?page=events-manager/events-manager.php&amp;action=update_event&amp;event_id=" . $EM_Event->id;
-	
+	$pref = "event_";
+	$form_destination = "edit.php?page=eventuate/eventuate.php&amp;action=update_event&amp;event_id=" . $EM_Event->id;
+
 	$locale_code = substr ( get_locale (), 0, 2 );
 	$localised_date_format = $localised_date_formats [$locale_code];
-	
+
 	//FIXME time useage is very flimsy imho
 	$hours_locale_regexp = "H:i";
 	// Setting 12 hours format for those countries using it
 	if (preg_match ( "/en|sk|zh|us|uk/", $locale_code ))
 		$hours_locale_regexp = "h:iA";
-	
+
 	$days_names = array (1 => __ ( 'Mon' ), 2 => __ ( 'Tue' ), 3 => __ ( 'Wed' ), 4 => __ ( 'Thu' ), 5 => __ ( 'Fri' ), 6 => __ ( 'Sat' ), 0 => __ ( 'Sun' ) );
 	?>
 	<form id="eventForm" method="post" 	action="<?php echo $form_destination; ?>">
@@ -52,11 +52,11 @@ function dbem_event_form( $title ) {
 					}
 				?>
 			</p>
-			<?php endif; ?>              
+			<?php endif; ?>
 			<div id="poststuff" class="metabox-holder has-right-sidebar">
 				<!-- SIDEBAR -->
 				<div id="side-info-column" class='inner-sidebar'>
-					<div id='side-sortables'>       
+					<div id='side-sortables'>
 						<?php if(get_option('dbem_recurrence_enabled')) : ?>
 							<!-- START recurrence postbox -->
 							<div class="postbox ">
@@ -78,7 +78,7 @@ function dbem_event_form( $title ) {
 												<select id="recurrence-frequency" name="recurrence_freq">
 													<?php
 														$freq_options = array ("daily" => __ ( 'Daily', 'dbem' ), "weekly" => __ ( 'Weekly', 'dbem' ), "monthly" => __ ( 'Monthly', 'dbem' ) );
-														dbem_option_items ( $freq_options, $EM_Event->freq ); 
+														dbem_option_items ( $freq_options, $EM_Event->freq );
 													?>
 												</select>
 											</p>
@@ -97,20 +97,20 @@ function dbem_event_form( $title ) {
 												<?php _e ( 'month', 'dbem' )?>
 												</span> <span class='interval-desc' id="interval-monthly-plural">
 												<?php _e ( 'months', 'dbem' )?>
-												</span> 
+												</span>
 											</p>
 											<p class="alternate-selector" id="weekly-selector">
 												<?php
-													$saved_bydays = ($EM_Event->is_recurring()) ? explode ( ",", $EM_Event->byday ) : array(); 
-													dbem_checkbox_items ( 'recurrence_bydays[]', $days_names, $saved_bydays ); 
+													$saved_bydays = ($EM_Event->is_recurring()) ? explode ( ",", $EM_Event->byday ) : array();
+													dbem_checkbox_items ( 'recurrence_bydays[]', $days_names, $saved_bydays );
 												?>
 											</p>
 											<p class="alternate-selector" id="monthly-selector">
 												<?php _e ( 'Every', 'dbem' )?>
 												<select id="monthly-modifier" name="recurrence_byweekno">
 													<?php
-														$weekno_options = array ("1" => __ ( 'first', 'dbem' ), '2' => __ ( 'second', 'dbem' ), '3' => __ ( 'third', 'dbem' ), '4' => __ ( 'fourth', 'dbem' ), '-1' => __ ( 'last', 'dbem' ) ); 
-														dbem_option_items ( $weekno_options, $EM_Event->byweekno  ); 
+														$weekno_options = array ("1" => __ ( 'first', 'dbem' ), '2' => __ ( 'second', 'dbem' ), '3' => __ ( 'third', 'dbem' ), '4' => __ ( 'fourth', 'dbem' ), '-1' => __ ( 'last', 'dbem' ) );
+														dbem_option_items ( $weekno_options, $EM_Event->byweekno  );
 													?>
 												</select>
 												<select id="recurrence-weekday" name="recurrence_byday">
@@ -126,7 +126,7 @@ function dbem_event_form( $title ) {
 											<p>
 												<?php echo $EM_Event->get_recurrence_description(); ?>
 												<br />
-												<a href="<?php bloginfo ( 'wpurl' )?>/wp-admin/edit.php?page=events-manager/events-manager.php&amp;action=edit_event&amp;event_id=<?php echo $EM_Event->recurrence_id; ?>">
+												<a href="<?php bloginfo ( 'wpurl' )?>/wp-admin/edit.php?page=eventuate/eventuate.php&amp;action=edit_event&amp;event_id=<?php echo $EM_Event->recurrence_id; ?>">
 												<?php _e ( 'Reschedule', 'dbem' ); ?>
 												</a>
 												<input type="hidden" name="recurrence_id" value="<?php echo $EM_Event->recurrence_id; ?>" />
@@ -135,9 +135,9 @@ function dbem_event_form( $title ) {
 										<p><?php _e ( 'This is\'t a recurrent event', 'dbem' ) ?></p>
 									<?php endif; ?>
 								</div>
-							</div> 
-							<!-- END recurrence postbox -->   
-						<?php endif; ?>          
+							</div>
+							<!-- END recurrence postbox -->
+						<?php endif; ?>
 						<?php if(get_option('dbem_rsvp_enabled')) : ?>
 							<!-- START RSVP -->
 							<div class="postbox ">
@@ -168,12 +168,12 @@ function dbem_event_form( $title ) {
 										</p>
 									<?php } ?>
 									<div id='rsvp-data'>
-										<?php 
+										<?php
 										if ($EM_Event->contactperson_id  != NULL){
 											$selected = $EM_Event->contactperson_id;
 										}else{
 											$selected = '0';
-										} 
+										}
 										?>
 										<p>
 											<?php _e ( 'Spaces','dbem' ); ?> :
@@ -184,12 +184,12 @@ function dbem_event_form( $title ) {
 											if ($EM_Event->rsvp ) {
 												$available_seats = $EM_Event->get_bookings()->get_available_seats();
 												$booked_seats = $EM_Event->get_bookings()->get_booked_seats();
-													
+
 												if ( count($EM_Event->get_bookings()->bookings) > 0 ) {
 													?>
 													<div class='wrap'>
-														<h4><?php echo $booked_seats ?> <?php echo  __('responses so far') ?></h4>  
-													  
+														<h4><?php echo $booked_seats ?> <?php echo  __('responses so far') ?></h4>
+
 														<table id='dbem-bookings-table-<?php echo $EM_Event->id ?>' class='widefat post fixed'>
 															<thead>
 																<tr>
@@ -200,12 +200,12 @@ function dbem_event_form( $title ) {
 															</thead>
 															<tbody>
 																<?php
-																foreach ($EM_Event->get_bookings()->bookings as $EM_Booking) { 
+																foreach ($EM_Event->get_bookings()->bookings as $EM_Booking) {
 																	?>
-																	<tr id='booking-<?php echo $EM_Booking->id ?>'> 
+																	<tr id='booking-<?php echo $EM_Booking->id ?>'>
 																		<td>
 																			<?php if($EM_Booking->comment) : ?>
-																			<img src='../wp-content/plugins/events-manager/includes/images/baloon.png' title='<?php _e('Comment:','dbem'); ?> <?php echo $EM_Booking->comment ?>' alt='comment'/>
+																			<img src='../wp-content/plugins/eventuate/includes/images/baloon.png' title='<?php _e('Comment:','dbem'); ?> <?php echo $EM_Booking->comment ?>' alt='comment'/>
 																			<?php endif; ?>
 																			<a id='booking-check-<?php echo $EM_Booking->id ?>' class='bookingdelbutton'>X</a>
 																		</td>
@@ -220,30 +220,30 @@ function dbem_event_form( $title ) {
 																<tr>
 																	<th scope='row' colspan='2'><?php _e('Booked spaces','dbem') ?>:</th>
 																	<td class='booking-result' id='booked-seats'><?php echo $booked_seats ?></td>
-																</tr>            
+																</tr>
 														 		<tr>
 														 			<th scope='row' colspan='2'><?php _e('Available spaces','dbem') ?>:</th>
 														 			<td class='booking-result' id='available-seats'><?php echo $available_seats  ?></td>
 																</tr>
-															</tfoot>									
+															</tfoot>
 												 		</table>
 												 	</div>
-													 		
+
 											 	    <br class='clear'/>
-											 	    
-											 	 	<div id='major-publishing-actions'>  
-														<div id='publishing-action'> 
+
+											 	 	<div id='major-publishing-actions'>
+														<div id='publishing-action'>
 															<a id='printable'  target='_blank' href='<?php echo get_bloginfo('wpurl') . "/wp-admin/admin.php?page=people&action=printable&event_id=".$EM_Event->id ?>'><?php _e('Printable view','dbem')?></a>
-															<br class='clear'/>             
+															<br class='clear'/>
 												        </div>
-														<br class='clear'/>    
+														<br class='clear'/>
 													</div>
-													<?php                                                     
+													<?php
 												} else {
 													?>
 													<p><em><?php _e('No responses yet!')?></em></p>
 													<?php
-												} 
+												}
 											}
 										?>
 										<!-- END RSVP Stats -->
@@ -251,7 +251,7 @@ function dbem_event_form( $title ) {
 								</div>
 							</div>
 							<!-- END RSVP -->
-						<?php endif; ?>  
+						<?php endif; ?>
 						<?php if(get_option('dbem_categories_enabled')) :?>
 							<!-- START Categories -->
 							<div class="postbox ">
@@ -261,22 +261,22 @@ function dbem_event_form( $title ) {
 									<?php _e ( 'Category', 'dbem' ); ?>
 									</span></h3>
 								<div class="inside">
-									<p><?php _e ( 'Category:', 'dbem' ); ?> 
+									<p><?php _e ( 'Category:', 'dbem' ); ?>
 										<select name="event_category_id">
-											<?php 
+											<?php
 											$categories = EM_Category::get();
 											foreach ( $categories as $category ){
-												$selected = ($category['category_id'] == $EM_Event->category_id) ? "selected='selected'": ''; 
+												$selected = ($category['category_id'] == $EM_Event->category_id) ? "selected='selected'": '';
 												?>
 												<option value="<?php echo $category['category_id'] ?>" <?php echo $selected ?>>
 												<?php echo $category['category_name'] ?>
 												</option>
-												<?php 
+												<?php
 											} ?>
 										</select>
 									</p>
 								</div>
-							</div> 
+							</div>
 							<!-- END Categories -->
 						<?php endif; ?>
 					</div>
@@ -330,7 +330,7 @@ function dbem_event_form( $title ) {
 								-
 								<input id="end-time" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo date( $hours_locale_regexp, strtotime($EM_Event->end_time) ); ?>" />
 								<br />
-								<?php _e ( 'The time of the event beginning and end', 'dbem' )?>. 
+								<?php _e ( 'The time of the event beginning and end', 'dbem' )?>.
 							</div>
 						</div>
 						<div id="location_coordinates" class="stuffbox" style='display: none;'>
@@ -348,24 +348,24 @@ function dbem_event_form( $title ) {
 								<?php _e ( 'Location', 'dbem' ); ?>
 							</h3>
 							<div class="inside">
-								<table id="dbem-location-data">     
+								<table id="dbem-location-data">
 									<tr>
 										<td style="padding-right:20px">
 											<table>
-												<?php if($use_select_for_locations) : ?> 
+												<?php if($use_select_for_locations) : ?>
 												<tr>
 													<th><?php _e('Location:','dbem') ?></th>
-													<td> 
-														<select name="location-select-id" id='location-select-id' size="1">  
-															<?php 
+													<td>
+														<select name="location-select-id" id='location-select-id' size="1">
+															<?php
 															$locations = EM_Locations::get();
-															foreach($locations as $location) {    
-																$selected = "";  
+															foreach($locations as $location) {
+																$selected = "";
 																if( is_object($EM_Event->location) )  {
-																	if ($EM_Event->location->id == $location->id) 
+																	if ($EM_Event->location->id == $location->id)
 																		$selected = "selected='selected' ";
 																}
-														   		?>          
+														   		?>
 														    	<option value="<?php echo $location->id ?>" title="<?php echo "{$location->latitude},{$location->longitude}" ?>" <?php echo $selected ?>><?php echo $location->name; ?></option>
 														    	<?php
 															}
@@ -378,7 +378,7 @@ function dbem_event_form( $title ) {
 												<tr>
 													<th><?php _e ( 'Name:' )?></th>
 													<td>
-														<input id="location-name" type="text" name="location_name" value="<?php echo htmlspecialchars($EM_Event->location->name, ENT_QUOTES); ?>" />													
+														<input id="location-name" type="text" name="location_name" value="<?php echo htmlspecialchars($EM_Event->location->name, ENT_QUOTES); ?>" />
 					                            		<p><?php _e ( 'Select a location for your event', 'dbem' )?></p>
 					                            	</td>
 										 		</tr>
@@ -423,7 +423,7 @@ function dbem_event_form( $title ) {
 							<?php _e ( 'Details about the event', 'dbem' )?>
 						</div>
 					</div>
-					
+
 					<?php if(get_option('dbem_attributes_enabled')) : ?>
 						<div id="event_attributes" class="postbox">
 							<h3>
@@ -432,7 +432,7 @@ function dbem_event_form( $title ) {
 							<div class="inside">
 								<?php
 								//We also get a list of attribute names and create a ddm list (since placeholders are fixed)
-								$formats = 
+								$formats =
 									get_option ( 'dbem_event_list_item_format' ).
 									get_option ( 'dbem_event_page_title_format' ).
 									get_option ( 'dbem_full_calendar_event_format' ).
@@ -450,7 +450,7 @@ function dbem_event_form( $title ) {
 								$attributes = array();
 								foreach($placeholders[0] as $result) {
 									$attribute = substr( substr($result, 0, strpos($result, '}')), 6 );
-									if( !in_array($attribute, $attributes) ){			
+									if( !in_array($attribute, $attributes) ){
 										$attributes[] = $attribute ;
 									}
 								}
@@ -465,7 +465,7 @@ function dbem_event_form( $title ) {
 													<td><strong>Attribute Name</strong></td>
 													<td><strong>Value</strong></td>
 												</tr>
-											</thead>    
+											</thead>
 											<tfoot>
 												<tr valign="top">
 													<td colspan="3"><a href="#" id="mtm_add_tag">Add new tag</a></td>
@@ -527,7 +527,7 @@ function dbem_event_form( $title ) {
 									<?php else : ?>
 										<p>
 										<?php _e('In order to use attributes, you must define some in your templates, otherwise they\'ll never show. Go to Events > Settings to add attribute placeholders.', 'dbem'); ?>
-										</p> 
+										</p>
 										<script>
 											jQuery(document).ready(function($){ $('#event_attributes').addClass('closed'); });
 										</script>
@@ -566,7 +566,7 @@ function dbem_event_form( $title ) {
 				}
 			});
 			<?php endif; ?>
-		});		
+		});
 	</script>
 <?php
 }

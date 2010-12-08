@@ -1,46 +1,46 @@
 <?php
 // obsolete tables
-define('EM_OLD_EVENTS_TABLE','dbem_events') ; 
-define('EM_OLD_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME   
-define('EM_OLD_LOCATIONS_TABLE','dbem_locations'); //TABLE NAME  
+define('EM_OLD_EVENTS_TABLE','dbem_events') ;
+define('EM_OLD_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME
+define('EM_OLD_LOCATIONS_TABLE','dbem_locations'); //TABLE NAME
 define('EM_OLD_BOOKINGS_TABLE','dbem_bookings'); //TABLE NAME
-define('EM_OLD_PEOPLE_TABLE','dbem_people'); //TABLE NAME  
-define('EM_OLD_BOOKING_PEOPLE_TABLE','dbem_bookings_people'); //TABLE NAME   
+define('EM_OLD_PEOPLE_TABLE','dbem_people'); //TABLE NAME
+define('EM_OLD_BOOKING_PEOPLE_TABLE','dbem_bookings_people'); //TABLE NAME
 define('EM_OLD_CATEGORIES_TABLE', 'dbem_categories'); //TABLE NAME
 
 function em_install() {
 	$old_version = get_option('dbem_version');
 	if( EM_VERSION > $old_version || $old_version == '' ){
 		// Creates the events table if necessary
-		em_create_events_table(); 
+		em_create_events_table();
 		em_create_locations_table();
 		em_create_bookings_table();
 		em_create_people_table();
 		em_create_categories_table();
 		em_add_options();
-		
+
 		//Migrate?
 		if( $old_version < 2.3 && $old_version != '' ){
 			em_migrate_to_new_tables();
 			em_import_verify();
 		}
-		//Upate Version	
-	  	update_option('dbem_version', EM_VERSION); 
-	  	
+		//Upate Version
+	  	update_option('dbem_version', EM_VERSION);
+
 		// wp-content must be chmodded 777. Maybe just wp-content.
 		if(!file_exists("../".EM_IMAGE_UPLOAD_DIR))
 			mkdir("../".EM_IMAGE_UPLOAD_DIR, 0777); //do we need to 777 it? it'll be owner apache anyway, like normal uploads
-		
-		em_create_events_page(); 
+
+		em_create_events_page();
 	}
 }
 
 function em_create_events_table() {
 	global  $wpdb, $user_level, $user_ID;
 	get_currentuserinfo();
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php'); 
-	
-	$table_name = $wpdb->prefix.EM_EVENTS_TABLE; 
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+	$table_name = $wpdb->prefix.EM_EVENTS_TABLE;
 	$sql = "CREATE TABLE ".$table_name." (
 		event_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		event_author bigint(20) unsigned DEFAULT NULL,
@@ -48,12 +48,12 @@ function em_create_events_table() {
 		event_start_time time NOT NULL,
 		event_end_time time NOT NULL,
 		event_start_date date NOT NULL,
-		event_end_date date NULL, 
+		event_end_date date NULL,
 		event_notes text NULL DEFAULT NULL,
 		event_rsvp bool NOT NULL DEFAULT 1,
 		event_seats int(5),
 		event_cost float DEFAULT NULL,
-		event_contactperson_id bigint(20) unsigned NULL,  
+		event_contactperson_id bigint(20) unsigned NULL,
 		location_id bigint(20) unsigned NOT NULL,
 		recurrence_id bigint(20) unsigned NULL,
 		event_category_id bigint(20) unsigned NULL DEFAULT NULL,
@@ -62,19 +62,19 @@ function em_create_events_table() {
 		recurrence_interval int(4) NULL DEFAULT NULL,
 		recurrence_freq tinytext NULL DEFAULT NULL,
 		recurrence_byday tinytext NULL DEFAULT NULL,
-		recurrence_byweekno int(4) NULL DEFAULT NULL,  		
+		recurrence_byweekno int(4) NULL DEFAULT NULL,
 		UNIQUE KEY (event_id)
 		) DEFAULT CHARSET=utf8 ;";
-	
-	$old_table_name = $wpdb->prefix.EM_OLD_EVENTS_TABLE; 
+
+	$old_table_name = $wpdb->prefix.EM_OLD_EVENTS_TABLE;
 
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name && $wpdb->get_var("SHOW TABLES LIKE '$old_table_name'") != $old_table_name) {
-		dbDelta($sql);		
+		dbDelta($sql);
 		//Add default events
 		$in_one_week = date('Y-m-d', time() + 60*60*24*7);
-		$in_four_weeks = date('Y-m-d', time() + 60*60*24*7*4); 
+		$in_four_weeks = date('Y-m-d', time() + 60*60*24*7*4);
 		$in_one_year = date('Y-m-d', time() + 60*60*24*7*365);
-		
+
 		$wpdb->query("INSERT INTO ".$table_name." (event_name, event_start_date, event_start_time, event_end_time, location_id) VALUES ('Orality in James Joyce Conference', '$in_one_week', '16:00:00', '18:00:00', 1)");
 		$wpdb->query("INSERT INTO ".$table_name." (event_name, event_start_date, event_start_time, event_end_time, location_id)	VALUES ('Traditional music session', '$in_four_weeks', '20:00:00', '22:00:00', 2)");
 		$wpdb->query("INSERT INTO ".$table_name." (event_name, event_start_date, event_start_time, event_end_time, location_id) VALUES ('6 Nations, Italy VS Ireland', '$in_one_year','22:00:00', '24:00:00', 3)");
@@ -84,7 +84,7 @@ function em_create_events_table() {
 }
 
 function em_create_locations_table() {
-	
+
 	global  $wpdb, $user_level;
 	$table_name = $wpdb->prefix.EM_LOCATIONS_TABLE;
 
@@ -100,13 +100,13 @@ function em_create_locations_table() {
 		location_description text DEFAULT NULL,
 		UNIQUE KEY (location_id)
 		) DEFAULT CHARSET=utf8 ;";
-		
+
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	
-	$old_table_name = $wpdb->prefix.EM_OLD_LOCATIONS_TABLE;     
+
+	$old_table_name = $wpdb->prefix.EM_OLD_LOCATIONS_TABLE;
 
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name && $wpdb->get_var("SHOW TABLES LIKE '$old_table_name'") != $old_table_name) {
-		dbDelta($sql);		
+		dbDelta($sql);
 		//Add default values
 		$wpdb->query("INSERT INTO ".$table_name." (location_name, location_address, location_town, location_latitude, location_longitude) VALUES ('Arts Millenium Building', 'Newcastle Road','Galway', 53.275, -9.06532)");
 		$wpdb->query("INSERT INTO ".$table_name." (location_name, location_address, location_town, location_latitude, location_longitude) VALUES ('The Crane Bar', '2, Sea Road','Galway', 53.2692, -9.06151)");
@@ -117,14 +117,14 @@ function em_create_locations_table() {
 }
 
 function em_create_bookings_table() {
-	
+
 	global  $wpdb, $user_level;
 	$table_name = $wpdb->prefix.EM_BOOKINGS_TABLE;
-		
+
 	$sql = "CREATE TABLE ".$table_name." (
 		booking_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 		event_id bigint(20) unsigned NOT NULL,
-		person_id bigint(20) unsigned NOT NULL, 
+		person_id bigint(20) unsigned NOT NULL,
 		booking_seats int(5) NOT NULL DEFAULT 1,
 		booking_payment_status int(5) NOT NULL DEFAULT 0,
 		booking_comment text DEFAULT NULL,
@@ -136,13 +136,13 @@ function em_create_bookings_table() {
 }
 
 function em_create_people_table() {
-	
+
 	global  $wpdb, $user_level;
 	$table_name = $wpdb->prefix.EM_PEOPLE_TABLE;
 
 	$sql = "CREATE TABLE ".$table_name." (
 		person_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		person_name tinytext NOT NULL, 
+		person_name tinytext NOT NULL,
 		person_email tinytext NOT NULL,
 		person_zip tinytext NOT NULL,
 		person_address text NOT NULL,
@@ -159,11 +159,11 @@ function em_create_people_table() {
 		) DEFAULT CHARSET=utf8 ;";
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta($sql);
-} 
+}
 
 //Add the categories table
 function em_create_categories_table() {
-	
+
 	global  $wpdb, $user_level;
 	$table_name = $wpdb->prefix.EM_CATEGORIES_TABLE;
 
@@ -174,9 +174,9 @@ function em_create_categories_table() {
 		PRIMARY KEY  (category_id)
 		) DEFAULT CHARSET=utf8 ;";
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	
-	$old_table_name = $wpdb->prefix.EM_OLD_CATEGORIES_TABLE;     
-	
+
+	$old_table_name = $wpdb->prefix.EM_OLD_CATEGORIES_TABLE;
+
 	if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name && $wpdb->get_var("SHOW TABLES LIKE '$old_table_name'") != $old_table_name) {
 		dbDelta($sql);
 		$wpdb->insert( $table_name, array('category_name'=>__('Uncategorized', 'dbem')), array('%s') );
@@ -189,13 +189,13 @@ function em_create_categories_table() {
 function em_add_options() {
 	$contact_person_email_body_localizable = __("#_RESPNAME (#_RESPEMAIL) will attend #_NAME on #m #d, #Y. He wants to reserve #_SPACES spaces.<br/> Now there are #_RESERVEDSPACES spaces reserved, #_AVAILABLESPACES are still available.<br/>Yours faithfully,<br/>Events Manager",'dbem') ;
 	$respondent_email_body_localizable = __("Dear #_RESPNAME, <br/>you have successfully reserved #_SPACES space/spaces for #_NAME.<br/>Yours faithfully,<br/> #_CONTACTPERSON",'dbem');
-	
+
 	$dbem_options = array(
 		'dbem_event_list_item_format' => '<li>#j #M #Y - #H:#i<br/> #_LINKEDNAME<br/>#_TOWN </li>',
 		'dbem_display_calendar_in_events_page' => 0,
 		'dbem_single_event_format' => '<h3>#_NAME</h3><p>#j #M #Y - #H:#i</p><p>#_TOWN</p>',
 		'dbem_event_page_title_format' => '#_NAME',
-		'dbem_list_events_page' => 1,   
+		'dbem_list_events_page' => 1,
 		'dbem_events_page_title' => __('Events','dbem'),
 		'dbem_no_events_message' => __('No events','dbem'),
 		'dbem_location_page_title_format' => '#_NAME',
@@ -212,12 +212,12 @@ function em_add_options() {
 		'dbem_gmap_is_active'=> 1,
 		'dbem_default_contact_person' => 1,
 		'dbem_rsvp_mail_notify_is_active' => 0 ,
-		'dbem_contactperson_email_body' => __(str_replace("<br/>", "\n\r", $contact_person_email_body_localizable)),        
+		'dbem_contactperson_email_body' => __(str_replace("<br/>", "\n\r", $contact_person_email_body_localizable)),
 		'dbem_respondent_email_body' => __(str_replace("<br/>", "\n\r", $respondent_email_body_localizable)),
 		'dbem_rsvp_mail_port' => 465,
 		'dbem_smtp_host' => 'localhost',
 		'dbem_mail_sender_name' => '',
-		'dbem_rsvp_mail_send_method' => 'smtp',  
+		'dbem_rsvp_mail_send_method' => 'smtp',
 		'dbem_rsvp_mail_SMTPAuth' => 1,
 		'dbem_image_max_width' => 700,
 		'dbem_image_max_height' => 700,
@@ -225,7 +225,7 @@ function em_add_options() {
 		'dbem_list_date_title' => __('Events', 'dbem').' - #j #M #y',
 		'dbem_full_calendar_event_format' => '<li>#_LINKEDNAME</li>',
 		'dbem_small_calendar_event_title_format' => "#_NAME",
-		'dbem_small_calendar_event_title_separator' => ", ", 
+		'dbem_small_calendar_event_title_separator' => ", ",
 		'dbem_hello_to_user' => 1,
 		'dbem_use_select_for_locations' => false,
 		'dbem_attributes_enabled' => true,
@@ -238,36 +238,36 @@ function em_add_options() {
 		'dbem_events_default_order' => 'ASC',
 		'dbem_events_default_limit' => 10
 	);
-	
+
 	foreach($dbem_options as $key => $value){
 		add_option($key, $value);
 	}
-		
+
 }
 
 function em_create_events_page(){
-	global $wpdb,$current_user;	
+	global $wpdb,$current_user;
 	if( get_option('dbem_events_page') == '' && get_option('dbem_dismiss_events_page') != 1 && !is_object( get_page( get_option('dbem_events_page') )) ){
 		$post_data = array(
-			'post_status' => 'publish', 
+			'post_status' => 'publish',
 			'post_type' => 'page',
 			'ping_status' => get_option('default_ping_status'),
-			'post_content' => 'CONTENTS', 
+			'post_content' => 'CONTENTS',
 			'post_excerpt' => 'CONTENTS',
 			'post_title' => __('Events','dbem')
 		);
 		$post_id = wp_insert_post($post_data, false);
 	   	if( $post_id > 0 ){
-	   		update_option('dbem_events_page', $post_id); 			
+	   		update_option('dbem_events_page', $post_id);
 	   	}
 	}
-}   
+}
 
 // migrate old dbem tables to new em ones
 function em_migrate_to_new_tables(){
 	global $wpdb, $current_user;
 	get_currentuserinfo();
-	$errors = array();                
+	$errors = array();
 	// migrating events
 	$events_required = array('event_id', 'event_name','event_start_time','event_end_time','event_start_date','event_rsvp','location_id','recurrence');
 	$events = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_OLD_EVENTS_TABLE,ARRAY_A)  ;
@@ -278,7 +278,7 @@ function em_migrate_to_new_tables(){
 			foreach($event as $key => $value){
 				if( in_array($key, $event_fields) ){
 					if($value == '' && !in_array($key,$events_required)){ $event[$key] = 'NULL'; }
-					elseif ( $value == '-1' && !in_array($key,$events_required) ) { $event[$key] = 'NULL'; } 
+					elseif ( $value == '-1' && !in_array($key,$events_required) ) { $event[$key] = 'NULL'; }
 					else { $event[$key] = "'".$wpdb->escape($event[$key])."'"; }
 				}else{
 					unset($event[$key]);
@@ -288,7 +288,7 @@ function em_migrate_to_new_tables(){
 		}
 		$events_keys = array_keys($event);
 		if( count($events_values) > 0 ){
-			$events_sql = "INSERT INTO " . $wpdb->prefix.EM_EVENTS_TABLE . 
+			$events_sql = "INSERT INTO " . $wpdb->prefix.EM_EVENTS_TABLE .
 				"(`" . implode('` ,`', $events_keys) . "`) VALUES".
 				implode(', ', $events_values);
 			$wpdb->query($events_sql);
@@ -297,9 +297,9 @@ function em_migrate_to_new_tables(){
 			}
 		}
 	}
-	
-	// inserting recurrences into events                 
-	$table_name = $wpdb->prefix.EM_EVENTS_TABLE;  
+
+	// inserting recurrences into events
+	$table_name = $wpdb->prefix.EM_EVENTS_TABLE;
 	$results = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_RECURRENCE_TABLE, ARRAY_A);
 	if( count($results) > 0 ){
 		foreach($results as $recurrence_raw){
@@ -307,7 +307,7 @@ function em_migrate_to_new_tables(){
 			$recurrence_id = $recurrence_raw['recurrence_id'];
 			//First insert the event into events table
 			$recurrence = array( //Save new array with correct indexes
-				'event_author' => $current_user->ID,                  
+				'event_author' => $current_user->ID,
 				'event_name' => $recurrence_raw['recurrence_name'],
 				'event_start_date' => $recurrence_raw['recurrence_start_date'],
 				'event_end_date' => $recurrence_raw['recurrence_end_date'],
@@ -323,15 +323,15 @@ function em_migrate_to_new_tables(){
 			);
 			$result = $wpdb->insert($table_name, $recurrence, array('%d','%s','%s','%s','%s','%s','%s','%d','%d','%d','%d','%d','%d'));
 			//Then change the id of all the events with recurrence_id
-			if($result == 1){    
+			if($result == 1){
 				$wpdb->query("UPDATE {$table_name} SET recurrence_id='{$wpdb->insert_id}' WHERE recurrence_id='{$recurrence_id}'");
 			}else{
-				//FIXME Better fallback in case of bad install 
+				//FIXME Better fallback in case of bad install
 				_e('We could not mirgrate old recurrence data over. DONT WORRY! You can just delete the current plugin, and re-install the previous 2.2.2 version and you wont lose any of your data. Either way, please contact the developers to let them know of this bug.', 'dbem');
-			} 
-		}   
-	}                                                                                     
-	
+			}
+		}
+	}
+
 	// migrating locations
 	$locations_required = array('location_id', 'location_name', 'location_address', 'location_town');
 	$locations = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_OLD_LOCATIONS_TABLE,ARRAY_A)  ;
@@ -342,7 +342,7 @@ function em_migrate_to_new_tables(){
 			foreach($location as $key => $value){
 				if( in_array($key, $location_fields) ){
 					if($value == '' && !in_array($key, $locations_required)){ $location[$key] = 'NULL'; }
-					elseif ( $value == '-1' && !in_array($key, $locations_required) ) { $location[$key] = 'NULL'; } 
+					elseif ( $value == '-1' && !in_array($key, $locations_required) ) { $location[$key] = 'NULL'; }
 					else { $location[$key] = "'".$wpdb->escape($location[$key])."'"; }
 				}else{
 					unset($location[$key]);
@@ -350,19 +350,19 @@ function em_migrate_to_new_tables(){
 			}
 			$locations_values[] = "\n".'('. implode(', ', $location).')';
 		}
-		$locations_keys = array_keys($location); 
+		$locations_keys = array_keys($location);
 		if( count($locations_values) > 0 ){
-			$locations_sql = "INSERT INTO " . $wpdb->prefix.EM_LOCATIONS_TABLE . 
+			$locations_sql = "INSERT INTO " . $wpdb->prefix.EM_LOCATIONS_TABLE .
 				"(`" . implode('` ,`', $locations_keys) . "`) VALUES".
 				implode(', ', $locations_values);
 			$wpdb->query($locations_sql);
 		}
 	}
-	
+
 	// migrating people
 	$people = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_OLD_PEOPLE_TABLE,ARRAY_A)  ;
 	if( count($people) > 0 ){
-		$people_values = array(); 
+		$people_values = array();
 		$people_fields = array('person_id', 'person_name', 'person_email', 'person_phone');
 		foreach($people as $person) {
 			foreach($person as $key => $value){
@@ -376,13 +376,13 @@ function em_migrate_to_new_tables(){
 		}
 		$people_keys = array_keys($person);
 		if( count($people_values) > 0 ){
-			$people_sql = "INSERT INTO " . $wpdb->prefix.EM_PEOPLE_TABLE . 
+			$people_sql = "INSERT INTO " . $wpdb->prefix.EM_PEOPLE_TABLE .
 				"(`" . implode('` ,`', $people_keys) . "`) VALUES".
 				implode(', ', $people_values);
 			$wpdb->query($people_sql);
 		}
 	}
-	 
+
 	// migrating bookings
 	$bookings = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_OLD_BOOKINGS_TABLE,ARRAY_A)  ;
 	if( count($bookings) > 0 ){
@@ -392,7 +392,7 @@ function em_migrate_to_new_tables(){
 			foreach($booking as $key => $value){
 				if( in_array($key, $booking_fields) ){
 					if($value == '' && $key == 'booking_comment'){ $booking[$key] = 'NULL'; }
-					elseif ( $value == '-1' ) { $booking[$key] = '0'; } 
+					elseif ( $value == '-1' ) { $booking[$key] = '0'; }
 					else { $booking[$key] = "'".$wpdb->escape($booking[$key])."'"; }
 				}else{
 					unset($booking[$key]);
@@ -400,27 +400,27 @@ function em_migrate_to_new_tables(){
 			}
 			$bookings_values[] = "\n".'('. implode(', ', $booking).')';
 		}
-		$bookings_keys = array_keys($booking); 
+		$bookings_keys = array_keys($booking);
 		if( count($bookings_values) > 0 ){
-			$bookings_sql = "INSERT INTO " . $wpdb->prefix.EM_BOOKINGS_TABLE . 
+			$bookings_sql = "INSERT INTO " . $wpdb->prefix.EM_BOOKINGS_TABLE .
 				"(`" . implode('` ,`', $bookings_keys) . "`) VALUES".
 				implode(', ', $bookings_values);
 			$wpdb->query($bookings_sql);
 		}
-		 
+
 		// migrating categories
 		$categories = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.EM_OLD_CATEGORIES_TABLE,ARRAY_A)  ;
 		$categories_fields = array('category_id', 'category_name');
-		foreach($categories as $category) {   
+		foreach($categories as $category) {
 			foreach($category as $key => $val){
 				if( !in_array($key, $categories_fields) ){
 					unset($category[$key]);
 				}
 			}
 			$wpdb->insert($wpdb->prefix.EM_CATEGORIES_TABLE, $category);
-		} 
-	}	 
-	
+		}
+	}
+
 	if( count($errors) > 0 && is_array($errors) ){
 		$func = create_function('', '?>
 			<div id="em_page_error" class="error">
@@ -431,7 +431,7 @@ function em_migrate_to_new_tables(){
 			</div>
 			<?php
 		');
-		add_action ( 'admin_notices', $func);		
+		add_action ( 'admin_notices', $func);
 	}
 }
 
@@ -480,11 +480,11 @@ function em_import_verify(){
 		update_option( 'dbem_import_fail', 0 );
 		add_action ( 'admin_notices', 'em_import_message_success' );
 		return true;
-	}	
+	}
 }
 
 /**
- * Gets called if re-import was successful. 
+ * Gets called if re-import was successful.
  */
 function em_import_message_success(){
 	?>
@@ -496,16 +496,16 @@ function em_import_message_success(){
 
 /*
  * If import failed, a persistant message will show unless ignored.
- */		
+ */
 function em_import_message_fail(){
 	if( $_GET['em_dismiss_import'] == '1' ){
 		update_option('dbem_import_fail', 0);
-	}	
+	}
 	if( get_option('dbem_import_fail') == 1 ){
 		$dismiss_link_joiner = ( count($_GET) > 0 ) ? '&amp;':'?';
 		?>
 			<div id="em_page_error" class="error">
-				<p><?php printf( __('Something has gone wrong when importing your old event. See the <a href="%s">support page</a> for more information. <a href="%s">Dismiss this message</a>','dbem'), get_bloginfo('wpurl').'/wp-admin/admin.php?page=events-manager-support', $_SERVER['REQUEST_URI'].$dismiss_link_joiner.'em_dismiss_import=1'); ?></p>
+				<p><?php printf( __('Something has gone wrong when importing your old event. See the <a href="%s">support page</a> for more information. <a href="%s">Dismiss this message</a>','dbem'), get_bloginfo('wpurl').'/wp-admin/admin.php?page=eventuate-support', $_SERVER['REQUEST_URI'].$dismiss_link_joiner.'em_dismiss_import=1'); ?></p>
 			</div>
 		<?php
 	}
