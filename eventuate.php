@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Events Manager
-Version: 3.0.7
-Plugin URI: http://wp-events-plugin.com
-Description: Manage events specifying precise spatial data (Location, Town, Province, etc).
-Author: Davide Benini, Marcus Sykes
-Author URI: http://wp-events-plugin.com
+Plugin Name: Eventuate
+Version: 0.1
+Plugin URI: https://github.com/memuller/eventuate
+Description: Manage events and reservations made via PagSeguro.
+Author: Matheus Muller, Davide Benini, Marcus Sykes
+Author URI: http://memuller.com
 */
 
 /*
-Copyright (c) 2010, Davide Benini and Marcus Sykes
+Copyright (c) 2010, Matheus Muller, Davide Benini and Marcus Sykes
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -88,7 +88,7 @@ if( is_admin() ){
 
 
 // Setting constants
-define('EM_VERSION', 3.05); //self expanatory
+define('EM_VERSION', 0.1); //self expanatory
 define('EM_CATEGORIES_TABLE', 'em_categories'); //TABLE NAME
 define('EM_EVENTS_TABLE','em_events'); //TABLE NAME
 define('EM_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME   
@@ -178,7 +178,7 @@ add_filter( 'plugin_row_meta', 'em_set_plugin_meta', 10, 2 );
 function em_create_events_submenu () {
 	if(function_exists('add_submenu_page')) {
 		//TODO Add flexible permissions
-	  	add_object_page(__('Events', 'dbem'),__('Events', 'dbem'),EM_MIN_CAPABILITY,__FILE__,'dbem_events_subpanel', '../wp-content/plugins/events-manager/includes/images/calendar-16.png');
+	  	add_object_page(__('Events', 'dbem'),__('Events', 'dbem'),EM_MIN_CAPABILITY,__FILE__,'dbem_events_subpanel', '../wp-content/plugins/eventuate/includes/images/calendar-16.png');
 	   	// Add a submenu to the custom top-level menu:
 	   		$plugin_pages = array(); 
 			$plugin_pages[] = add_submenu_page(__FILE__, __('Edit'),__('Edit'),EM_MIN_CAPABILITY,__FILE__,'dbem_events_subpanel');
@@ -203,7 +203,7 @@ add_action('admin_menu','em_create_events_submenu');
  */
 function em_enqueue_public() {
 	wp_enqueue_script ( 'jquery' ); //make sure we have jquery loaded
-	wp_enqueue_style('events-manager', WP_PLUGIN_URL.'/events-manager/includes/css/events_manager.css'); //main css
+	wp_enqueue_style('events-manager', WP_PLUGIN_URL.'/eventuate/includes/css/events_manager.css'); //main css
 }
 add_action ( 'template_redirect', 'em_enqueue_public' );
 
@@ -221,12 +221,12 @@ add_filter ( 'favorite_actions', 'em_favorite_menu' );
 
 /* Creating the wp_events table to store event data*/
 function em_activate() {
-	require_once(WP_PLUGIN_DIR.'/events-manager/install.php');
+	require_once(WP_PLUGIN_DIR.'/eventuate/install.php');
 	em_install();
 }
 register_activation_hook( __FILE__,'em_activate');
 
 if( !empty($_GET['em_reimport']) || get_option('dbem_import_fail') == '1' ){
-	require_once(WP_PLUGIN_DIR.'/events-manager/install.php');
+	require_once(WP_PLUGIN_DIR.'/eventuate/install.php');
 }
 ?>
