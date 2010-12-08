@@ -51,7 +51,7 @@ class EM_Bookings extends EM_Object{
 	 * @return boolean
 	 */
 	function add( $EM_Booking ){
-		global $wpdb,$EM_Mailer; 
+		global $wpdb,$EM_Mailer;
 		if ( $this->get_available_seats() >= $EM_Booking->seats ) {  
 			$EM_Booking->event_id = $this->event_id;
 			// checking whether the booker has already booked places
@@ -117,6 +117,7 @@ class EM_Bookings extends EM_Object{
 			$booked_seats += $booking->seats;
 		}
 		return $this->seats - $booked_seats;
+		
 	}
 
 	/**

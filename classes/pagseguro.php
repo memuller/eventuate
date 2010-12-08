@@ -6,19 +6,58 @@
 		var $event ;
 		var $cost ;
 		var $status ; 
-		
-		function Payment($booking_id) {
-			$booking = new EM_Booking() ; $booking->get(array('booking_id' => $booking_id)) ;
-			$person = new EM_Person() ; $person->get(array('person_id' => $booking->person_id)) ;
-			$event = new EM_Event($booking->event_id) ; 
-			$cost = $event->cost ; $status = $booking->payment_status ; 
-			echo $this->person->name ; 
-			print_r($this->person) ; 
+		var $uid ; 
+		function Payment($booking_id) { 
+			$this->booking = new EM_Booking($booking_id) ;
+			$this->person = new EM_Person($this->booking->person_id) ;
+			$this->event = new EM_Event($this->booking->event_id) ; 
+			$this->cost = $this->event->cost ; 
+			$this->status = $this->booking->payment_status ;
+			$this->uid = $this->event->id . "-" . $this->booking->id ;
 		}
 		
 		function invite_link() {
+			$url = WP_PLUGIN_URL . '/eventuate/payments.php?id=' . $booking_id ; 
 			_e('In order to confirm your reservation, you will now be redirected to PagSeguro, where you can make your payment.', 'dbem'); ?>
-			<a href="payment_url"><? _e('Make payment', 'dbem')  ;?></a><?php 
+			<a href="$url"><?php _e('Make payment', 'dbem')  ;?></a><?php 
+		}
+		
+		function prepare_data(){
+			$fields = array(
+				'cliente_nome' => $this->person->name,
+				'cliente_cep' => $this->person->zip,
+				'cliente_end' => $this->person->address,
+				'cliente_num' => $this->person->num,
+				'cliente_compl' => $this->person->compl,
+				'cliente_bairro' => $this->person->district,
+				'cliente_cidade' => $this->person->city,
+				'cliente_uf' => $this->person->uf,
+				'cliente_pais' => 'BRA',
+				'cliente_ddd' => $this->person->ddd,
+				'cliente_tel' => $this->person->phone,
+				'cliente_email' => $this->person->email,
+				'email_cobranca' => 'hello@memuller.com',
+				'tipo' => 'CP',
+				'moeda' => 'BRL',
+				'item_id_1' => $this->uid,
+				'item_descr_1' => $this->event->name,
+				'item_valor_1' => $this->cost * 100,
+				'item_quant_1' => 1,
+				'item_frete_1' => 0
+			) ;
+			$data = array();
+			foreach( $fields as $k => $v )
+			{
+				$v = urlencode(stripslashes($v)) ;
+				$data[]= "{$k}={$v}" ;
+			}
+			return implode('&', $data) ; 
+		}
+		
+		function send_request(){
+			$data = $this->prepare_data() ;
+			$url = "https://pagseguro.uol.com.br/checkout/checkout.jhtml?{$data}" ;
+			header("Location: $url") ;
 		}
 	
 	}
