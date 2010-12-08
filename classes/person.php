@@ -17,7 +17,8 @@ class EM_Person extends EM_Object{
                 'person_district' => array('name'=>'district','type'=>'%s'),
                 'person_city' => array('name'=>'city','type'=>'%s'),
                 'person_uf' => array('name'=>'uf','type'=>'%s'),
-		'person_country' => array('name'=>'country','type'=>'%s'),
+				'person_zip' => array('name' => 'zip', 'type' => '%s'),
+				'person_country' => array('name'=>'country','type'=>'%s'),
                 'person_ddd' => array('name'=>'ddd','type'=>'%s'),
                 'person_phone' => array('name'=>'phone','type'=>'%s'),
 	);
