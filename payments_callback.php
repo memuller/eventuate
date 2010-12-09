@@ -1,8 +1,6 @@
 <?php
 require_once('../../../wp-load.php') ;
 
-if (!defined('TOKEN')) define ('TOKEN', '');
-
 /**
  * RetornoPagSeguro
  *
