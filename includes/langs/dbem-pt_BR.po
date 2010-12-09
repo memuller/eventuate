@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: events-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-07 19:11+0100\n"
-"PO-Revision-Date: 2010-12-03 14:10-0300\n"
+"PO-Revision-Date: 2010-12-09 03:10-0300\n"
 "Last-Translator: Matheus Elias Muller <hello@memuller.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,24 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
+
+msgid "General options"
+msgstr "Opções gerais"
+
+msgid "Payment options"
+msgstr "Opções de pagamento"
+
+msgid "Pagseguro payments email"
+msgstr "E-mail do Pagseguro"
+
+msgid "Email of the Pagseguro user which will handle event payments."
+msgstr "Email do usuário do Pagseguro que vai receber os pagamentos."
+
+msgid "Pagseguro callback token"
+msgstr "Token do Pagseguro"
+
+msgid "A Pagseguro callback token."
+msgstr "Token de retorno automático do PagSeguro."
 
 msgid "RSVP"
 msgstr "Reservas"
