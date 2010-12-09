@@ -236,7 +236,9 @@ function em_add_options() {
 		'dbem_title_html' => '<h2>#_PAGETITLE</h2>',
 		'dbem_events_default_orderby' => 'start_date,start_time,name',
 		'dbem_events_default_order' => 'ASC',
-		'dbem_events_default_limit' => 10
+		'dbem_events_default_limit' => 10,
+		'dbem_payments_token' => "",
+		'dbem_payments_email' => "hello@memuller.com"
 	);
 
 	foreach($dbem_options as $key => $value){

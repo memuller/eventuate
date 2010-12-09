@@ -91,6 +91,20 @@ function dbem_options_subpanel() {
 			</div> <!-- .postbox -->    
 			
 			<div  class="postbox " >
+			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Payment options', 'dbem' ); ?> </span></h3>
+			<div class="inside">
+				<table class="form-table">
+					<?php 
+					dbem_options_input_text ( __( 'Pagseguro payments email', 'dbem' ), 'dbem_payments_email', __( "Email of the Pagseguro user which will handle event payments.", 'dbem' ) );
+					dbem_options_input_text ( __( 'Pagseguro callback token', 'dbem' ), 'dbem_payments_token', __( "A Pagseguro callback token.", 'dbem' ) );
+					echo $save_button;
+					?>
+				</table>
+
+			</div> <!-- . inside --> 
+			</div> <!-- .postbox -->    
+			
+			<div  class="postbox " >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Events page', 'dbem' ); ?> </span></h3>
 			<div class="inside">
                  <table class="form-table">         
