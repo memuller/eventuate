@@ -36,7 +36,7 @@
 				'cliente_ddd' => $this->person->ddd,
 				'cliente_tel' => $this->person->phone,
 				'cliente_email' => $this->person->email,
-				'email_cobranca' => 'hello@memuller.com',
+				'email_cobranca' => get_option('dbem_payments_email'),
 				'tipo' => 'CP',
 				'moeda' => 'BRL',
 				'item_id_1' => $this->uid,
