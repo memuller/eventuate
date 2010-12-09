@@ -7,19 +7,28 @@
 		var $cost ;
 		var $status ; 
 		var $uid ; 
-		function Payment($booking_id) { 
+		function Payment($booking_id) {
+			if ( substr_count($booking_id, '-') == 1 )
+			{
+				$this->uid = $booking_id ; 
+				$booking_id = explode("-", $booking_id) ; 
+				$booking_id = $booking_id[1] ; 
+			}
 			$this->booking = new EM_Booking($booking_id) ;
 			$this->person = new EM_Person($this->booking->person_id) ;
 			$this->event = new EM_Event($this->booking->event_id) ; 
 			$this->cost = $this->event->cost ; 
 			$this->status = $this->booking->payment_status ;
-			$this->uid = $this->event->id . "-" . $this->booking->id ;
+			
+			if( ! $this->uid ){
+				$this->uid = $this->event->id . "-" . $this->booking->id ;
+			}
 		}
 		
 		function invite_link() {
-			$url = WP_PLUGIN_URL . '/eventuate/payments.php?id=' . $booking_id ; 
+			$url = WP_PLUGIN_URL . '/eventuate/payments.php?id=' . $this->booking->id ; 
 			_e('In order to confirm your reservation, you will now be redirected to PagSeguro, where you can make your payment.', 'dbem'); ?>
-			<a href="$url"><?php _e('Make payment', 'dbem')  ;?></a><?php 
+			<a href="<?php echo $url ; ?>"><?php _e('Make payment', 'dbem')  ;?></a><?php 
 		}
 		
 		function prepare_data(){
