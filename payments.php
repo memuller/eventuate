@@ -1,5 +1,8 @@
 <?php
 	require_once('../../../wp-load.php') ;
+	require_once('payments_callback.php') ;
+	define('TOKEN', get_option('dbem_payments_token')) ;
+	
 	if( $_GET['id']) {
 		$payment = new Payment($_GET['id']) ; 
 		switch ( $payment->status )
