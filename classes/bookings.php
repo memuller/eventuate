@@ -58,6 +58,9 @@ class EM_Bookings extends EM_Object{
 			$previous_booking = $this->find_previous_booking( $EM_Booking );
 			$email = false;
 			if ( is_object($previous_booking) ) { 
+				// New behavior: no multiple bookings are allowed.
+				$this->errors[] = "<strong>" . __("Sorry, but you cannot book more than one seat per event.") . "</strong>" ;
+				return false ; 
 				//Previously booked, so we add these seats to the booking
 				$new_seats = $EM_Booking->seats;
 				$EM_Booking = $previous_booking;
