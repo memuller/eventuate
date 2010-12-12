@@ -124,7 +124,6 @@ function em_add_booking_form() {
 						<input type='text' name='person_phone' value='<?php echo $_POST['person_phone'] ?>'/>
 						</td>
 					</tr>
-					<tr><th scope='row'><?php _e('Comment', 'dbem') ?>:</th><td><textarea name='booking_comment'><?php echo $_POST['booking_comment'] ?></textarea></td></tr>
 			</table>
 			<p>
 				<input type='submit' value='<?php _e('Send your booking', 'dbem') ?>'/>&nbsp;&nbsp;&nbsp;&nbsp;
