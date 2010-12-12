@@ -16,6 +16,27 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Number"
+msgstr "Número"
+
+msgid "Complement"
+msgstr "Complemento"
+
+msgid "District"
+msgstr "Bairro"
+
+msgid "City"
+msgstr "Cidade"
+
+msgid "UF"
+msgid "Estado"
+
+msgid "Zip"
+msgstr "CEP"
+
+msgid "Sorry, but you cannot book more than one seat per event."
+msgstr "Desculpe, mas você não pode reservar mais de um lugar por evento."
+
 msgid "General options"
 msgstr "Opções gerais"
 
