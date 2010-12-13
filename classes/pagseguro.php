@@ -52,7 +52,8 @@
 				'item_descr_1' => $this->event->name,
 				'item_valor_1' => $this->cost * 100,
 				'item_quant_1' => 1,
-				'item_frete_1' => 0
+				'item_frete_1' => 0,
+				'ref_transacao' => $this->uid
 			) ;
 			$data = array();
 			foreach( $fields as $k => $v )
@@ -67,6 +68,10 @@
 			$data = $this->prepare_data() ;
 			$url = "https://pagseguro.uol.com.br/checkout/checkout.jhtml?{$data}" ;
 			header("Location: $url") ;
+		}
+		
+		function update($new_type, $new_status){
+			
 		}
 	
 	}
