@@ -1,5 +1,11 @@
 <?php
+	
 	class Payment {
+		
+		const unpaid = 0 ;
+		const paid = 1 ;
+		const failed = -2 ;
+		const validating = -1 ;
 		
 		var $booking ;
 		var $person ; 
@@ -70,8 +76,20 @@
 			header("Location: $url") ;
 		}
 		
+		
 		function update($new_type, $new_status){
-			
+			switch ( $new_status )
+			{
+				case 'Completo':
+					$this->booking->payment_status = Payment::paid ;
+					$this->booking->save ;
+				break;
+						
+				default:
+					$this->booking->payment_status = Payment::unpaid ;
+					$this->booking->save ; 
+				break;
+			}
 		}
 	
 	}
