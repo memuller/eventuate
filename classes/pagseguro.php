@@ -81,6 +81,7 @@
 			switch ( $new_status )
 			{
 				case 'Completo':
+				case 'Aprovado':
 					$this->booking->payment_status = Payment::paid ;
 					$this->booking->save ;
 				break;
