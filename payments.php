@@ -5,7 +5,8 @@
 	
 	function retorno_automatico ( $VendedorEmail, $TransacaoID, $Referencia, $TipoFrete, $ValorFrete, $Anotacao, $DataTransacao, $TipoPagamento, $StatusTransacao, $CliNome, $CliEmail, $CliEndereco, $CliNumero, $CliComplemento, $CliBairro, $CliCidade, $CliEstado, $CliCEP, $CliTelefone, $produtos, $NumItens) {
 		$payment = new Payment($Referencia) ; 
-		$payment->update($TipoPagamento , $StatusTransacao) ; 
+		$payment->update($TipoPagamento , $StatusTransacao) ;
+		$_GET['id'] = $payment->booking->id ;
 	}
 	
 	

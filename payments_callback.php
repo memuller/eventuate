@@ -194,7 +194,6 @@ class RetornoPagSeguro {
 
 if ($_POST) {
   RetornoPagSeguro::verifica($_POST);
-  die();
 }
 
 
