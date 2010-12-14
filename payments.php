@@ -8,19 +8,24 @@
 		$payment->update($TipoPagamento , $StatusTransacao) ; 
 	}
 	
+	
 	if( $_GET['id']) {
 		$payment = new Payment($_GET['id']) ; 
 		switch ( $payment->status )
 			{
-				case 0: #UNPAID
+				case Payment::unpaid : 
 					$payment->send_request();
 				break;
 
-				case 1: #PAID
+				case Payment::paid : 
 					_e("You have already paid your reservation.") ; 
 				break;
-
-				case -1: #FAILED
+				
+				case Payment::validating :
+					_e("Your payment is currently being validated. During this time, you may receive mail and phone calls from PagSeguro or your credit card operator, so pay attention.") ; 
+				break ; 
+				
+				case Payment::failed : 
 					$payment->send_request();
 				break;
 				

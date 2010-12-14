@@ -84,6 +84,17 @@
 					$this->booking->payment_status = Payment::paid ;
 					$this->booking->save ;
 				break;
+				
+				case 'Aguardando' :
+				case 'Em Análise' :
+					$this->booking->payment_status = Payment::validating ;
+					$this->booking->save ; 
+				break ;
+				
+				case 'Cancelado' :
+					$this->booking->payment_status = Payment::error ;
+					$this->booking->save ;
+				break ;
 						
 				default:
 					$this->booking->payment_status = Payment::unpaid ;
