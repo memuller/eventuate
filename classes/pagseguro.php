@@ -32,9 +32,18 @@
 		}
 		
 		function invite_link() {
-			$url = WP_PLUGIN_URL . '/eventuate/payments.php?id=' . $this->booking->id ; 
+			$data = $this->prepare_data() ;
+			 
 			_e('In order to confirm your reservation, you will now be redirected to PagSeguro, where you can make your payment.', 'dbem'); ?>
-			<a href="<?php echo $url ; ?>"><?php _e('Make payment', 'dbem')  ;?></a><?php 
+			
+			<form id='pagseguro-form' name='pagseguro-form' method='post' action='https://pagseguro.uol.com.br/security/webpagamentos/webpagto.aspx'>
+				<?php foreach( $data as $k => $v )
+				{
+					echo "<input type='hidden' name='$k' value='$v' />" ; 
+				}
+				?>
+				<input type='submit' value='<?php _e('Make payment', 'dbem') ?>'/>
+			</form> <?php 
 		}
 		
 		function prepare_data(){
@@ -61,17 +70,19 @@
 				'item_frete_1' => 0,
 				'ref_transacao' => $this->uid
 			) ;
+			return $fields ; 
+		}
+		
+		function send_request(){
+			$data = $this->prepare_data() ;
+			
 			$data = array();
 			foreach( $fields as $k => $v )
 			{
 				$v = urlencode(stripslashes($v)) ;
 				$data[]= "{$k}={$v}" ;
 			}
-			return implode('&', $data) ; 
-		}
-		
-		function send_request(){
-			$data = $this->prepare_data() ;
+			$data = implode('&', $data) ;
 			$url = "https://pagseguro.uol.com.br/checkout/checkout.jhtml?{$data}" ;
 			header("Location: $url") ;
 		}
@@ -83,23 +94,23 @@
 				case 'Completo':
 				case 'Aprovado':
 					$this->booking->payment_status = Payment::paid ;
-					$this->booking->save ;
+					$this->booking->save() ;
 				break;
 				
 				case 'Aguardando' :
 				case 'Em Análise' :
 					$this->booking->payment_status = Payment::validating ;
-					$this->booking->save ; 
+					$this->booking->save() ; 
 				break ;
 				
 				case 'Cancelado' :
 					$this->booking->payment_status = Payment::error ;
-					$this->booking->save ;
+					$this->booking->save() ;
 				break ;
 						
 				default:
 					$this->booking->payment_status = Payment::unpaid ;
-					$this->booking->save ; 
+					$this->booking->save() ; 
 				break;
 			}
 		}

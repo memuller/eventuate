@@ -72,7 +72,7 @@ class EM_Booking extends EM_Object{
 		    $this->id = $wpdb->insert_id;   
 		}
 		if( $result === false ){
-			$this->errors[] = __('There was a problem saving the booking.', 'dbem');
+			$this->errors[] = __('There was a problem saving the booking.', 'dbem'); 
 		}
 		
 		global $current_booking_id ; 

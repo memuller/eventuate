@@ -1,12 +1,12 @@
 <?php
+
 	require_once('../../../wp-load.php') ;
-	require_once('payments_callback.php') ;
 	define('TOKEN', get_option('dbem_payments_token')) ;
+	require_once('payments_callback.php') ;
 	
 	function retorno_automatico ( $VendedorEmail, $TransacaoID, $Referencia, $TipoFrete, $ValorFrete, $Anotacao, $DataTransacao, $TipoPagamento, $StatusTransacao, $CliNome, $CliEmail, $CliEndereco, $CliNumero, $CliComplemento, $CliBairro, $CliCidade, $CliEstado, $CliCEP, $CliTelefone, $produtos, $NumItens) {
 		$payment = new Payment($Referencia) ; 
 		$payment->update($TipoPagamento , $StatusTransacao) ;
-		$_GET['id'] = $payment->booking->id ;
 	}
 	
 	
@@ -31,10 +31,11 @@
 				break;
 				
 				default: #ERROR
-
+					_e("This reservation link is invalid. Please use the payment link sent to you by e-mail.") ;
 				break;
 			}
 	} else {
-		_e("This reservation link is invalid. Please use the payment link sent to you by e-mail.") ; 
+		
+		 
 	} 
 ?>
