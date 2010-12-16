@@ -147,5 +147,30 @@ class EM_Booking extends EM_Object{
 			return false ;
 		}
 	}
+	
+	function payment_status_string(){
+		switch ( $this->payment_status )
+		{
+			case Payment::complete :
+				return __('Complete') ;
+			break;
+			
+			case Payment::paid :
+				return __('Paid') ;
+			break ;
+				
+			case Payment::unpaid :
+				return __('Unpaid') ;
+			break;
+			
+			case Payment::failed :
+				return __('Failed') ;
+			break ; 
+					
+			default:
+				return __('Unpaid') ;
+			break;
+		}
+	}
 }
 ?>
