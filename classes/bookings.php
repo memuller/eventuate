@@ -126,7 +126,13 @@ class EM_Bookings extends EM_Object{
 	}
 	
 	function get_paid_seats(){
-		
+		$paid_seats = 0 ;
+		foreach( $this->bookings as $booking ){
+			if( $booking->is_paid() ){
+				$paid_seats += 1 ;
+			}
+		}
+		return $paid_seats ; 
 	}
 	
 	/**
