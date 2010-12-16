@@ -152,23 +152,23 @@ class EM_Booking extends EM_Object{
 		switch ( $this->payment_status )
 		{
 			case Payment::complete :
-				return __('Complete') ;
+				return __('Complete', 'dbem') ;
 			break;
 			
 			case Payment::paid :
-				return __('Paid') ;
+				return __('Paid', 'dbem') ;
 			break ;
 				
 			case Payment::unpaid :
-				return __('Unpaid') ;
+				return __('Unpaid', 'dbem') ;
 			break;
 			
 			case Payment::failed :
-				return __('Failed') ;
+				return __('Failed', 'dbem') ;
 			break ; 
 					
 			default:
-				return __('Unpaid') ;
+				return __('Unpaid', 'dbem') ;
 			break;
 		}
 	}
