@@ -35,7 +35,6 @@
 				break;
 			}
 	} else {
-		_e("Thank you for your payment. We will contact you as soon as it is processed.") ;
-		 
+		require('views/payment_page.php') ;
 	} 
 ?>
