@@ -16,6 +16,25 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Paid spaces"
+msgstr "Inscrições pagas"
+
+msgid "Payment"
+msgstr "Pagamento"
+
+msgid "Paid"
+msgstr "Pago"
+
+msgid "Unpaid"
+msgstr "Não pago"
+
+msgid "Failed"
+msgstr "Falhou"
+
+msgid "Complete"
+msgstr "Recebido"
+
+#: new reservations form items
 msgid "Number"
 msgstr "Número"
 
@@ -1156,7 +1175,7 @@ msgstr "respostas até agora"
 
 #: dbem_rsvp.php:245
 msgid "Responder"
-msgstr "Responder"
+msgstr "Participante"
 
 #: dbem_rsvp.php:251
 msgid "Booked spaces"
@@ -1172,7 +1191,7 @@ msgstr "Versão para impressão"
 
 #: dbem_rsvp.php:281
 msgid "No responses yet!"
-msgstr "Nenhuma resposta até agora"
+msgstr "Nenhuma reserva até agora."
 
 #: dbem_rsvp.php:352
 msgid "New booking"
