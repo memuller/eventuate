@@ -6,6 +6,7 @@
 		const paid = 1 ;
 		const failed = -2 ;
 		const validating = -1 ;
+		const complete = 2 ;
 		
 		var $booking ;
 		var $person ; 
@@ -92,6 +93,10 @@
 			switch ( $new_status )
 			{
 				case 'Completo':
+					$this->booking->payment_status = Payment::complete ; 
+					$this->booking->save();
+				break ; 
+				
 				case 'Aprovado':
 					$this->booking->payment_status = Payment::paid ;
 					$this->booking->save() ;

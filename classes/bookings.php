@@ -117,7 +117,7 @@ class EM_Bookings extends EM_Object{
 	function get_available_seats(){
 		$booked_seats = 0;
 		foreach ( $this->bookings as $booking ){
-			if ( $booking->$payment_status == Payment::Paid ){
+			if ( $booking->is_paid() ){
 				$booked_seats += 1;
 			}
 		}

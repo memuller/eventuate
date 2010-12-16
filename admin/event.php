@@ -195,7 +195,7 @@ function dbem_event_form( $title ) {
 																<tr>
 																	<th class='manage-column column-cb check-column' scope='col'>&nbsp;</th>
 																	<th class='manage-column ' scope='col'><?php _e('Responder', 'dbem') ?></th>
-																	<th scope='col'><?php _e('Spaces', 'dbem') ?></th>
+																	<th scope='col'><?php _e('Payment', 'dbem') ?></th>
 															 	</tr>
 															</thead>
 															<tbody>

@@ -139,5 +139,13 @@ class EM_Booking extends EM_Object{
 		}
 		return $booking;
 	}
+	
+	function is_paid(){
+		if($this->payment_status == Payment::paid || $this->payment_status == Payment::complete){
+			return true ;
+		} else {
+			return false ;
+		}
+	}
 }
 ?>
