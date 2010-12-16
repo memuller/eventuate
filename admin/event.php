@@ -184,11 +184,12 @@ function dbem_event_form( $title ) {
 											if ($EM_Event->rsvp ) {
 												$available_seats = $EM_Event->get_bookings()->get_available_seats();
 												$booked_seats = $EM_Event->get_bookings()->get_booked_seats();
+												$paid_seats = $EM_Event->get_bookings()->get_paid_seats();
 
 												if ( count($EM_Event->get_bookings()->bookings) > 0 ) {
 													?>
 													<div class='wrap'>
-														<h4><?php echo $booked_seats ?> <?php echo  __('responses so far') ?></h4>
+														<h4><?php echo $booked_seats ?> <?php echo  __('responses so far', 'dbem') ?></h4>
 
 														<table id='dbem-bookings-table-<?php echo $EM_Event->id ?>' class='widefat post fixed'>
 															<thead>
@@ -210,7 +211,7 @@ function dbem_event_form( $title ) {
 																			<a id='booking-check-<?php echo $EM_Booking->id ?>' class='bookingdelbutton'>X</a>
 																		</td>
 																		<td><a title='<?php echo $EM_Booking->person->email ?> - <?php echo $EM_Booking->person->phone ?>'><?php echo $EM_Booking->person->name ?></a></td>
-																		<td><?php echo $EM_Booking->seats ?></td>
+																		<td><?php echo $EM_Booking->payment_status_string() ?></td>
 																	</tr>
 																	<?php
 																}
@@ -220,6 +221,10 @@ function dbem_event_form( $title ) {
 																<tr>
 																	<th scope='row' colspan='2'><?php _e('Booked spaces','dbem') ?>:</th>
 																	<td class='booking-result' id='booked-seats'><?php echo $booked_seats ?></td>
+																</tr>
+																<tr>
+																	<th scope='row' colspan='2'><?php _e('Paid spaces','dbem') ?>:</th>
+																	<td class='booking-result' id='paid-seats'><?php echo $paid_seats ?></td>
 																</tr>
 														 		<tr>
 														 			<th scope='row' colspan='2'><?php _e('Available spaces','dbem') ?>:</th>

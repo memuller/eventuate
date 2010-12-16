@@ -61,11 +61,15 @@ function dbem_bookings_table() {
 				</tbody>
 				<tfoot>
 					<tr>
-						<th scope='row' colspan='4'>Booked seats:</th>
+						<th scope='row' colspan='4'><?php _e('Booked seats') ;?>:</th>
 						<td class='booking-result' id='booked-seats'><?php echo $EM_Event->get_bookings()->get_booked_seats() ?></td>
 					</tr>
 					<tr>
-						<th scope='row' colspan='4'>Available seats:</th>
+						<th scope='row' colspan='4'><?php _e('Paid seats') ;?>:</th>
+						<td class='booking-result' id='paid-seats'><?php echo $EM_Event->get_bookings()->get_paid_seats() ?></td>
+					</tr>
+					<tr>
+						<th scope='row' colspan='4'><?php _e('Available seats') ;?>:</th>
 						<td class='booking-result' id='available-seats'><?php echo $EM_Event->get_bookings()->get_booked_seats() ?></td>
 					</tr>
 				</tfoot>
