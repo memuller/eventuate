@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 msgid "Paid spaces"
-msgstr "Inscrições pagas"
+msgstr "Pagantes"
 
 msgid "Payment"
 msgstr "Pagamento"
@@ -1179,11 +1179,11 @@ msgstr "Participante"
 
 #: dbem_rsvp.php:251
 msgid "Booked spaces"
-msgstr "Lugares reservados"
+msgstr "Reservas"
 
 #: dbem_rsvp.php:252
 msgid "Available spaces"
-msgstr "Lugares disponíveis"
+msgstr "Disponíveis"
 
 #: dbem_rsvp.php:273
 msgid "Printable view"
