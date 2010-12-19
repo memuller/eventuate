@@ -166,11 +166,46 @@ class EM_Bookings extends EM_Object{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param $EM_Booking
 	 * @return boolean
 	 */
+
+        function replace_shortcodes($text){
+          global $EM_Event ;
+          $placeholders = array(
+            '#_RESPNAME' =>  '#_BOOKINGNAME',//Depreciated
+            '#_RESPEMAIL' => '#_BOOKINGEMAIL',//Depreciated
+            '#_RESPPHONE' => '#_BOOKINGPHONE',//Depreciated
+            '#_SPACES' => '#_BOOKINGSPACES',//Depreciated
+            '#_COMMENT' => '#_BOOKINGCOMMENT',//Depreciated
+            '#_RESERVEDSPACES' => '#_BOOKEDSEATS',//Depreciated
+            '#_BOOKINGNAME' =>  $EM_Booking->person->name,
+            '#_BOOKINGEMAIL' => $EM_Booking->person->email,
+            '#_BOOKINGPHONE' => $EM_Booking->person->phone,
+            '#_BOOKINGSPACES' => $EM_Booking->seats,
+            '#_BOOKINGCOMMENT' => $EM_Booking->comment
+          ) ;
+
+          $event_placeholders = array(
+            '#_EVENTNAME' => '#_NAME',
+            '#_EVENTCOST' => '#_COST'  
+          );
+
+          foreach ($placeholders as $k => $v){
+            $text = str_replace($k, $v, $text) ;
+          }
+
+          foreach ($event_placeholders as $k => $v){
+            $text = str_replace($k , $v , $text) ;
+          }
+
+          $text = $EM_Event->output($text) ;
+
+          return $text ;
+        }
+
 	function email($EM_Booking){
 		global $EM_Event, $EM_Mailer;
 		
@@ -179,28 +214,8 @@ class EM_Bookings extends EM_Object{
 		$contact_body = get_option('dbem_contactperson_email_body');
 		$booker_body = get_option('dbem_respondent_email_body');
 		
-		// email specific placeholders
-		// TODO make placeholders for RSVP consistent, we shouldn't need some of these as they're on the main events output function
-		$placeholders = array(
-			'#_RESPNAME' =>  '#_BOOKINGNAME',//Depreciated
-			'#_RESPEMAIL' => '#_BOOKINGEMAIL',//Depreciated
-			'#_RESPPHONE' => '#_BOOKINGPHONE',//Depreciated
-			'#_SPACES' => '#_BOOKINGSPACES',//Depreciated
-			'#_COMMENT' => '#_BOOKINGCOMMENT',//Depreciated
-			'#_RESERVEDSPACES' => '#_BOOKEDSEATS',//Depreciated
-			'#_BOOKINGNAME' =>  $EM_Booking->person->name,
-			'#_BOOKINGEMAIL' => $EM_Booking->person->email,
-			'#_BOOKINGPHONE' => $EM_Booking->person->phone,
-			'#_BOOKINGSPACES' => $EM_Booking->seats,
-			'#_BOOKINGCOMMENT' => $EM_Booking->comment,
-		);		 
-		foreach($placeholders as $key => $value) {
-			$contact_body= str_replace($key, $value, $contact_body);  
-			$booker_body= str_replace($key, $value, $booker_body);
-		}
-		
-		$contact_body = $EM_Event->output( $contact_body );
-		$booker_body = $EM_Event->output( $booker_body );
+                $contact_body = $this->replace_shortcodes($contact_body) ;
+                $booker_body = $this->replace_shortcodes($booker_body) ;
 		
 		//TODO offer subject changes
 		if( !$EM_Mailer->send(__('Reservation confirmed','dbem'),$booker_body, $EM_Booking->person->email) ){
