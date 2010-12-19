@@ -35,6 +35,13 @@
 		function invite_link() {
                   require( WP_PLUGIN_DIR . "/eventuate/views/booking_invite.php") ;
 		}
+
+                function invite_link_form_fields(){
+                  $data = $this->prepare_data() ; 
+                  foreach( $data as $k => $v ) {
+                    echo "<input type='hidden' name='$k' value='$v' />" ; 
+                  }
+                }
 		
 		function prepare_data(){
 			$fields = array(
