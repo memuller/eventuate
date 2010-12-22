@@ -101,14 +101,20 @@
 				# para deixar claro aonde um acaba e o outro come�a (ex. for�ar ddd/telefone separados por um h�phen) ?>
 			<label for="person_ddd"><?php _e('Phone number', 'dbem') ?>:</label>
 			<?php #DDD. SOMENTE N�MEROS. SOMENTE DOIS CARACTERES. ?>
-			<input type='text' id='person_ddd' name='person_ddd' value="<?php echo $_POST['person_ddd'] ?>" size="2" />
+			<input type='text' id='person_ddd' name='person_ddd' size='2' value="<?php echo $_POST['person_ddd'] ?>" />
 			<?php #Telefone. SEM O DDDD. SOMENTE N�MEROS. ?>
-			<input type='text' id="person_phone" name='person_phone' value='<?php echo $_POST['person_phone'] ?>'/>
+			<input type='text' id="person_phone" name='person_phone' size='8' value='<?php echo $_POST['person_phone'] ?>'/>
 		</p>
 		
 	</fieldset>
 				
 			<p>
+				<?php if ( !empty($dbem_form_messages_booking_add['error']) ) { ?>
+					<div class='dbem-rsvp-message-error'><?php echo $dbem_form_messages_booking_add['error'] ?></div>
+				<?php } elseif( !empty($dbem_form_messages_booking_add['message']) ) { ?>
+					<div class='dbem-rsvp-message'><?php echo $dbem_form_messages_booking_add['message'] ?></div>
+				<?php  }  ?>
+				
 				<input type='submit' class="send" value='<?php _e('Send your booking', 'dbem') ?>'/>&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type='hidden' name="booking_seats" value="1" />
 				<input type='hidden' name='person_country' value='BRA' />
