@@ -171,3 +171,8 @@ At this stage, Events Manager is only available in English and Italian. Yet, the
 * optimizing EM_Locations and removing redundant code across objects
 
 For changelog of 2.x and lower, see the readme.txt file of version 2.2.2
+
+
+
+
+AHhh

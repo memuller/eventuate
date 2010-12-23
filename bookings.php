@@ -56,48 +56,19 @@ function em_add_booking_form() {
 	ob_start();
 	?>
 	
-		<div id="dbem-rsvp">
-		<a name="dbem-rsvp"></a>		
-		<?php if( !empty($dbem_form_messages_booking_add['success']) ) { 
-			// Booking was sucessfull, let's now go to the payment.
-			$payment = new Payment($current_booking_id) ; 
-			$payment->invite_link();
-			return ob_get_clean(); 
-		} else {
-			if ( !empty($dbem_form_messages_booking_add['error']) ) { ?>
-				<div class='dbem-rsvp-message-error'><?php echo $dbem_form_messages_booking_add['error'] ?></div>
-			<?php } elseif( !empty($dbem_form_messages_booking_add['message']) ) { ?>
-				<div class='dbem-rsvp-message'><?php echo $dbem_form_messages_booking_add['message'] ?></div>
-			<?php }  
-			include('views/booking_form.php') ;
-			?>
+		<span id="dbem-rsvp"></span>
 
+			<?php if( !empty($dbem_form_messages_booking_add['success']) ) { 
+				// Booking was sucessfull, let's now go to the payment.
+				$payment = new Payment($current_booking_id) ; 
+				$payment->invite_link();
+				return ob_get_clean(); 
+			} else { 
+				include('views/booking_form.php');
+			
+
+			return ob_get_clean();} } 
 		
-	</div>
-
-	<script type="text/javascript">
-		jQuery(document).ready( function($){
-			if( $('#dbem-booking-delete').size() > 0 ){
-				var triggerText = '<?php ($_POST['eventAction'] == 'delete_booking') ? _e('Hide cancellation form', 'dbem') : _e('Cancel a booking', 'dbem'); ?>';
-				$('#dbem-rsvp input[type=submit]').after(' <a href="#" id="dbem-booking-cancel">'+triggerText+'</a>');
-				if( $('#dbem-booking-cancel').html() == '<?php _e('Cancel a booking', 'dbem'); ?>' ) { $('#dbem-booking-delete').hide(); }
-				$('#dbem-booking-cancel').click( function(event){
-					event.preventDefault();
-					if( $('#dbem-booking-cancel').html() == '<?php _e('Cancel a booking', 'dbem'); ?>' ){
-						$('#dbem-booking-cancel').html('<?php _e('Hide cancellation form', 'dbem'); ?>');
-						$('#dbem-booking-delete').slideDown();
-					}else{
-						$('#dbem-booking-cancel').html('<?php _e('Cancel a booking', 'dbem'); ?>');
-						$('#dbem-booking-delete').slideUp();
-					}
-				});
-			}
-		});
-	</script>
-	<?php
-	return ob_get_clean();	
-	}
-}
 
 /**
  * Booking removal in front end, called by placeholder #_REMOVEBOOKINGFORM
