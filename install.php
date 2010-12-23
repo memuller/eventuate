@@ -188,7 +188,8 @@ function em_create_categories_table() {
 
 function em_add_options() {
 	$contact_person_email_body_localizable = __("#_RESPNAME (#_RESPEMAIL) will attend #_NAME on #m #d, #Y. He wants to reserve #_SPACES spaces.<br/> Now there are #_RESERVEDSPACES spaces reserved, #_AVAILABLESPACES are still available.<br/>Yours faithfully,<br/>Events Manager",'dbem') ;
-	$respondent_email_body_localizable = __("Dear #_RESPNAME, <br/>you have successfully reserved #_SPACES space/spaces for #_NAME.<br/>Yours faithfully,<br/> #_CONTACTPERSON",'dbem');
+        $respondent_email_body_localizable = __("Dear #_RESPNAME, <br/>you have successfully reserved #_SPACES space/spaces for #_NAME.<br/>Yours faithfully,<br/> #_CONTACTPERSON",'dbem');
+        $payment_reminder_email_body_localizable = __("Dear #_RESPNAME, <br/> We noticed that you still haven't paid your reservation for the event #_EVENT . <br/> We'd like to remind you that if you do not make this payment until at least 10 days before the event's beggining date, you will not be able to participate. <br/> If you still wish to participate, please make your payment now using the following link: #_BOOKINGPAYMENTLINK .</br> If you no longer wish to participate, please tell us so in by replying to this message. <br/> Thank you, <br/> #_CONTACTPERSON", 'dbem') ;
 
 	$dbem_options = array(
 		'dbem_event_list_item_format' => '<li>#j #M #Y - #H:#i<br/> #_LINKEDNAME<br/>#_TOWN </li>',
@@ -212,12 +213,14 @@ function em_add_options() {
 		'dbem_gmap_is_active'=> 1,
 		'dbem_default_contact_person' => 1,
 		'dbem_rsvp_mail_notify_is_active' => 0 ,
-		'dbem_contactperson_email_body' => __(str_replace("<br/>", "\n\r", $contact_person_email_body_localizable)),
+                'dbem_payment_reminder_email_body' => __(str_replace("<br/>", "\n\r", $payment_reminder_email_body_localizable))
+                'dbem_contactperson_email_body' => __(str_replace("<br/>", "\n\r", $contact_person_email_body_localizable)),
 		'dbem_respondent_email_body' => __(str_replace("<br/>", "\n\r", $respondent_email_body_localizable)),
 		'dbem_rsvp_mail_port' => 465,
 		'dbem_smtp_host' => 'localhost',
-		'dbem_mail_sender_name' => '',
-		'dbem_rsvp_mail_send_method' => 'smtp',
+		'dbem_mail_sender_name' => get_option('blogname'),
+                'dbem_mail_sender_address' => get_option('admin_email'),
+		'dbem_rsvp_mail_send_method' => 'mail',
 		'dbem_rsvp_mail_SMTPAuth' => 1,
 		'dbem_image_max_width' => 700,
 		'dbem_image_max_height' => 700,
