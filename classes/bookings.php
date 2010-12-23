@@ -217,11 +217,8 @@ class EM_Bookings extends EM_Object{
           $email_body = $this->replace_shortcodes($email_body) ;
           if ( $EM_Mailer->send($email_subject, $email_body, $EM_Person->email)) {
             _e('Email reminder was send successfully.', 'dbem'); 
-            echo $EM_Person->email ;
-            echo $email_body ; 
           } else {
-            _e('There was an error while sending the reminder email.', 'dbem') ;
-            print_r($EM_Mailer->errors) ;
+            _e('There was an error while sending the reminder email. Please check your Wordpress email configuration, and if the problem persists, consult with your webmaster.', 'dbem') ;
           }
         }
 
