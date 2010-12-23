@@ -72,23 +72,6 @@ function dbem_options_subpanel() {
 			<!-- // TODO Move style in css -->
 			<div class='postbox-container' style='width: 99.5%'>
 			<div id="" class="meta-box-sortables" >
-		  
-			<div  class="postbox " >
-			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'General options', 'dbem' ); ?> </span></h3>
-			<div class="inside">
-	            <table class="form-table">
-					<?php 
-					dbem_options_radio_binary ( __( 'Use dropdown for locations?' ), 'dbem_use_select_for_locations', __( 'Select yes to select location from a drow-down menu; location selection will be faster, but you will lose the ability to insert locations with events','dbem' ) );  
-					dbem_options_radio_binary ( __( 'Use recurrence?' ), 'dbem_recurrence_enabled', __( 'Select yes to enable the recurrence features feature','dbem' ) ); 
-					dbem_options_radio_binary ( __( 'Use RSVP?' ), 'dbem_rsvp_enabled', __( 'Select yes to enable the RSVP feature','dbem' ) );     
-					dbem_options_radio_binary ( __( 'Use categories?' ), 'dbem_categories_enabled', __( 'Select yes to enable the category features','dbem' ) );     
-					dbem_options_radio_binary ( __( 'Use attributes?' ), 'dbem_attributes_enabled', __( 'Select yes to enable the attributes feature','dbem' ) );
-					echo $save_button;
-					?>
-				</table>
-				    
-			</div> <!-- . inside --> 
-			</div> <!-- .postbox -->    
 			
 			<div  class="postbox " >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Payment options', 'dbem' ); ?> </span></h3>
@@ -104,6 +87,42 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside --> 
 			</div> <!-- .postbox -->    
 			
+
+			<div  class="postbox " >
+			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Email Settings', 'dbem' ); ?> </span></h3>
+			<div class="inside">
+				<table class='form-table'>
+					<?php
+					dbem_options_input_text ( __( 'Notification sender name', 'dbem' ), 'dbem_mail_sender_name', __( "Insert the display name of the notification sender.", 'dbem' ) );
+					dbem_options_input_text ( __( 'Notification sender address', 'dbem' ), 'dbem_mail_sender_address', __( "Insert the address of the notification sender.", 'dbem' ) );
+					dbem_options_input_text ( 'Mail sending port', 'dbem_rsvp_mail_port', __( "The port through which you e-mail notifications will be sent. Make sure the firewall doesn't block this port", 'dbem' ) );
+					dbem_options_select ( __( 'Mail sending method', 'dbem' ), 'dbem_rsvp_mail_send_method', array ('smtp' => 'SMTP', 'mail' => __( 'PHP mail function', 'dbem' ), 'sendmail' => 'Sendmail', 'qmail' => 'Qmail' ), __( 'Select the method to send email notification.', 'dbem' ) );
+					dbem_options_radio_binary ( __( 'Use SMTP authentication?', 'dbem' ), 'dbem_rsvp_mail_SMTPAuth', __( 'SMTP authentication is often needed. If you use GMail, make sure to set this parameter to Yes', 'dbem' ) );
+					dbem_options_input_text ( 'SMTP host', 'dbem_smtp_host', __( "The SMTP host. Usually it corresponds to 'localhost'. If you use GMail, set this value to 'ssl://smtp.gmail.com:465'.", 'dbem' ) );
+					dbem_options_input_text ( __( 'SMTP username', 'dbem' ), 'dbem_smtp_username', __( "Insert the username to be used to access your SMTP server.", 'dbem' ) );
+					dbem_options_input_password ( __( 'SMTP password', 'dbem' ), "dbem_smtp_password", __( "Insert the password to be used to access your SMTP server", 'dbem' ) );
+					echo $save_button;
+					?>
+				</table>
+			</div> <!-- . inside -->
+			</div> <!-- .postbox -->
+
+            <div  class="postbox " >
+			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'RSVP and bookings', 'dbem' ); ?> </span></h3>
+			<div class="inside">
+				<table class='form-table'>
+					<?php
+					dbem_options_select ( __( 'Default contact person', 'dbem' ), 'dbem_default_contact_person', em_get_wp_users (), __( 'Select the default contact person. This user will be employed whenever a contact person is not explicitly specified for an event', 'dbem' ) );
+					dbem_options_radio_binary ( __( 'Enable the RSVP e-mail notifications?', 'dbem' ), 'dbem_rsvp_mail_notify_is_active', __( 'Check this option if you want to receive an email when someone books places for your events.', 'dbem' ) );
+					dbem_options_textarea ( __( 'Contact person email format', 'dbem' ), 'dbem_contactperson_email_body', __( 'The format of the email which will be sent to  the contact person. Follow the events formatting instructions. <br/>Use <code>#_RESPNAME</code>, <code>#_RESPEMAIL</code> and <code>#_RESPPHONE</code> to display respectively the name, e-mail, address and phone of the respondent.<br/>Use <code>#_SPACES</code> to display the number of spaces reserved by the respondent. Use <code>#_COMMENT</code> to display the respondent\'s comment. <br/> Use <code>#_BOOKEDSEATS</code> and <code>#_AVAILABLESEATS</code> to display respectively the number of booked and available seats.', 'dbem' ) );
+					dbem_options_textarea ( __( 'Contact person email format', 'dbem' ), 'dbem_respondent_email_body', __( 'The format of the email which will be sent to respondent. Follow the events formatting instructions. <br/>Use <code>#_RESPNAME</code> to display the name of the respondent.<br/>Use <code>#_CONTACTNAME</code> and <code>#_CONTACTEMAIL</code> a to display respectively the name and e-mail of the contact person.<br/>Use <code>#_SPACES</code> to display the number of spaces reserved by the respondent. Use <code>#_COMMENT</code> to display the respondent\'s comment.', 'dbem' ) );
+					dbem_options_input_text ( __( 'Default notification receiver address', 'dbem' ), 'dbem_mail_receiver_address', __( "Insert the address of the receiver of your notifications", 'dbem' ) );
+					echo $save_button;
+					?>
+				</table>
+			</div> <!-- . inside -->
+			</div> <!-- .postbox -->
+
 			<div  class="postbox " >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Events page', 'dbem' ); ?> </span></h3>
 			<div class="inside">
@@ -264,41 +283,23 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 			
-			<div  class="postbox " >
-			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'RSVP and bookings', 'dbem' ); ?> </span></h3>
+            <div  class="postbox " >
+			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'General options', 'dbem' ); ?> </span></h3>
 			<div class="inside">
-				<table class='form-table'>
-					<?php
-					dbem_options_select ( __( 'Default contact person', 'dbem' ), 'dbem_default_contact_person', em_get_wp_users (), __( 'Select the default contact person. This user will be employed whenever a contact person is not explicitly specified for an event', 'dbem' ) );
-					dbem_options_radio_binary ( __( 'Enable the RSVP e-mail notifications?', 'dbem' ), 'dbem_rsvp_mail_notify_is_active', __( 'Check this option if you want to receive an email when someone books places for your events.', 'dbem' ) );
-					dbem_options_textarea ( __( 'Contact person email format', 'dbem' ), 'dbem_contactperson_email_body', __( 'The format of the email which will be sent to  the contact person. Follow the events formatting instructions. <br/>Use <code>#_RESPNAME</code>, <code>#_RESPEMAIL</code> and <code>#_RESPPHONE</code> to display respectively the name, e-mail, address and phone of the respondent.<br/>Use <code>#_SPACES</code> to display the number of spaces reserved by the respondent. Use <code>#_COMMENT</code> to display the respondent\'s comment. <br/> Use <code>#_BOOKEDSEATS</code> and <code>#_AVAILABLESEATS</code> to display respectively the number of booked and available seats.', 'dbem' ) );
-					dbem_options_textarea ( __( 'Contact person email format', 'dbem' ), 'dbem_respondent_email_body', __( 'The format of the email which will be sent to respondent. Follow the events formatting instructions. <br/>Use <code>#_RESPNAME</code> to display the name of the respondent.<br/>Use <code>#_CONTACTNAME</code> and <code>#_CONTACTEMAIL</code> a to display respectively the name and e-mail of the contact person.<br/>Use <code>#_SPACES</code> to display the number of spaces reserved by the respondent. Use <code>#_COMMENT</code> to display the respondent\'s comment.', 'dbem' ) );
-					dbem_options_input_text ( __( 'Default notification receiver address', 'dbem' ), 'dbem_mail_receiver_address', __( "Insert the address of the receiver of your notifications", 'dbem' ) );
+	            <table class="form-table">
+					<?php 
+					dbem_options_radio_binary ( __( 'Use dropdown for locations?' ), 'dbem_use_select_for_locations', __( 'Select yes to select location from a drow-down menu; location selection will be faster, but you will lose the ability to insert locations with events','dbem' ) );  
+					dbem_options_radio_binary ( __( 'Use recurrence?' ), 'dbem_recurrence_enabled', __( 'Select yes to enable the recurrence features feature','dbem' ) ); 
+					dbem_options_radio_binary ( __( 'Use RSVP?' ), 'dbem_rsvp_enabled', __( 'Select yes to enable the RSVP feature','dbem' ) );     
+					dbem_options_radio_binary ( __( 'Use categories?' ), 'dbem_categories_enabled', __( 'Select yes to enable the category features','dbem' ) );     
+					dbem_options_radio_binary ( __( 'Use attributes?' ), 'dbem_attributes_enabled', __( 'Select yes to enable the attributes feature','dbem' ) );
 					echo $save_button;
 					?>
 				</table>
-			</div> <!-- . inside -->
-			</div> <!-- .postbox -->
-						
-			<div  class="postbox " >
-			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Email Settings', 'dbem' ); ?> </span></h3>
-			<div class="inside">
-				<table class='form-table'>
-					<?php
-					dbem_options_input_text ( __( 'Notification sender name', 'dbem' ), 'dbem_mail_sender_name', __( "Insert the display name of the notification sender.", 'dbem' ) );
-					dbem_options_input_text ( __( 'Notification sender address', 'dbem' ), 'dbem_mail_sender_address', __( "Insert the address of the notification sender.", 'dbem' ) );
-					dbem_options_input_text ( 'Mail sending port', 'dbem_rsvp_mail_port', __( "The port through which you e-mail notifications will be sent. Make sure the firewall doesn't block this port", 'dbem' ) );
-					dbem_options_select ( __( 'Mail sending method', 'dbem' ), 'dbem_rsvp_mail_send_method', array ('smtp' => 'SMTP', 'mail' => __( 'PHP mail function', 'dbem' ), 'sendmail' => 'Sendmail', 'qmail' => 'Qmail' ), __( 'Select the method to send email notification.', 'dbem' ) );
-					dbem_options_radio_binary ( __( 'Use SMTP authentication?', 'dbem' ), 'dbem_rsvp_mail_SMTPAuth', __( 'SMTP authentication is often needed. If you use GMail, make sure to set this parameter to Yes', 'dbem' ) );
-					dbem_options_input_text ( 'SMTP host', 'dbem_smtp_host', __( "The SMTP host. Usually it corresponds to 'localhost'. If you use GMail, set this value to 'ssl://smtp.gmail.com:465'.", 'dbem' ) );
-					dbem_options_input_text ( __( 'SMTP username', 'dbem' ), 'dbem_smtp_username', __( "Insert the username to be used to access your SMTP server.", 'dbem' ) );
-					dbem_options_input_password ( __( 'SMTP password', 'dbem' ), "dbem_smtp_password", __( "Insert the password to be used to access your SMTP server", 'dbem' ) );
-					echo $save_button;
-					?>
-				</table>
-			</div> <!-- . inside -->
-			</div> <!-- .postbox -->
-			
+				    
+			</div> <!-- . inside --> 
+			</div> <!-- .postbox --> // code...   
+
 			<div  class="postbox " >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Images size', 'dbem' ); ?> </span></h3>
 			<div class="inside">
