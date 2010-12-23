@@ -238,7 +238,7 @@ function em_add_options() {
 		'dbem_events_default_order' => 'ASC',
 		'dbem_events_default_limit' => 10,
 		'dbem_payments_token' => "",
-		'dbem_payments_email' => "hello@memuller.com"
+		'dbem_payments_email' => get_option('admin_email')
 	);
 
 	foreach($dbem_options as $key => $value){
