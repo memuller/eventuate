@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Eventuate
-Version: 0.2
+Version: 0.1
 Plugin URI: https://github.com/memuller/eventuate
 Description: Manage events and reservations made via PagSeguro.
 Author: Matheus Muller, Davide Benini, Marcus Sykes
@@ -88,7 +88,7 @@ if( is_admin() ){
 
 
 // Setting constants
-define('EM_VERSION', 0.2); //self expanatory
+define('EM_VERSION', 0.1); //self expanatory
 define('EM_CATEGORIES_TABLE', 'em_categories'); //TABLE NAME
 define('EM_EVENTS_TABLE','em_events'); //TABLE NAME
 define('EM_RECURRENCE_TABLE','dbem_recurrence'); //TABLE NAME
@@ -102,7 +102,7 @@ define("EM_IMAGE_UPLOAD_DIR", "wp-content/uploads/locations-pics");
 
 // DEBUG constant for developing
 // if you are hacking this plugin, set to TRUE, a log will show in admin pages
-define('DEBUG', true);
+define('DEBUG', false);
 
 // FILTERS
 // filters for general events field (corresponding to those of  "the _title")
