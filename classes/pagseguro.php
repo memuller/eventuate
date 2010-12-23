@@ -37,7 +37,7 @@
 		}
                 
                 function payment_processor_link(){
-                  $url = WP_PLUGINS_URL . 'eventuate/payments.php?id=' . $this->booking->id ;
+                  $url = WP_PLUGIN_URL . '/eventuate/payments.php?id=' . $this->booking->id ;
                   return "<a href='$url'>" . __('Pay now', 'dbem') . "</a>" ;
                 }
 
@@ -76,9 +76,8 @@
 		}
 		
 		function send_request(){
-			$data = $this->prepare_data() ;
-			
-			$data = array();
+			$fields = $this->prepare_data() ;
+			$data= array() ;
 			foreach( $fields as $k => $v )
 			{
 				$v = urlencode(stripslashes($v)) ;
