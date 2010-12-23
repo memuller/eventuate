@@ -35,6 +35,11 @@
 		function invite_link() {
                   require( WP_PLUGIN_DIR . "/eventuate/views/booking_invite.php") ;
 		}
+                
+                function payment_processor_link(){
+                  $url = WP_PLUGINS_URL . 'eventuate/payments.php?id=' . $this->booking->id ;
+                  return "<a href='$url'>" . __('Pay now', 'dbem') . "</a>" ;
+                }
 
                 function invite_link_form_fields(){
                   $data = $this->prepare_data() ; 

@@ -187,7 +187,7 @@ class EM_Bookings extends EM_Object{
             '#_BOOKINGPHONE' => $EM_Booking->person->phone,
             '#_BOOKINGSPACES' => $EM_Booking->seats,
             '#_BOOKINGCOMMENT' => $EM_Booking->comment,
-            '#_BOOKINGPAYMENTLINK' => $EM_Payment->invite_link()
+            '#_BOOKINGPAYMENTLINK' => $EM_Payment->payment_processor_link() 
           ) ;
 
           $event_placeholders = array(
