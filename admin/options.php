@@ -123,7 +123,7 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 
-			<div  class="postbox " >
+			<div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Events page', 'dbem' ); ?> </span></h3>
 			<div class="inside">
                  <table class="form-table">         
@@ -216,7 +216,7 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 			      
-           	<div  class="postbox " >
+           	<div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Calendar format', 'dbem' ); ?></span></h3>
 			<div class="inside">
             	<table class="form-table">   
@@ -231,7 +231,7 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 			
-			<div  class="postbox " >
+			<div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Locations format', 'dbem' ); ?> </span></h3>
 			<div class="inside">
             	<table class="form-table">
@@ -247,7 +247,7 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 			
-			<div  class="postbox " >
+			<div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'RSS feed format', 'dbem' ); ?> </span></h3>
 			<div class="inside">
             	<table class="form-table">
@@ -262,7 +262,7 @@ function dbem_options_subpanel() {
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
 			
-			<div  class="postbox " >
+			<div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Maps and geotagging', 'dbem' ); ?> </span></h3>
 			<div class="inside">
 				<table class='form-table'> 
@@ -282,8 +282,21 @@ function dbem_options_subpanel() {
 				</table>
 			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
-			
-            <div  class="postbox " >
+
+			<div  class="postbox closed" >
+			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Images size', 'dbem' ); ?> </span></h3>
+			<div class="inside">
+				<table class='form-table'>
+					<?php
+					dbem_options_input_text ( __( 'Maximum width (px)', 'dbem' ), 'dbem_image_max_width', __( 'The maximum allowed width for images uploades', 'dbem' ) );
+					dbem_options_input_text ( __( 'Maximum height (px)', 'dbem' ), 'dbem_image_max_height', __( "The maximum allowed height for images uploaded, in pixels", 'dbem' ) );
+					dbem_options_input_text ( __( 'Maximum size (bytes)', 'dbem' ), 'dbem_image_max_size', __( "The maximum allowed size for images uploaded, in pixels", 'dbem' ) );
+					?>
+				</table> 
+			</div> <!-- . inside -->
+			</div> <!-- .postbox -->
+
+            <div  class="postbox closed" >
 			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'General options', 'dbem' ); ?> </span></h3>
 			<div class="inside">
 	            <table class="form-table">
@@ -298,19 +311,6 @@ function dbem_options_subpanel() {
 				</table>
 				    
 			</div> <!-- . inside --> 
-			</div> <!-- .postbox --> // code...   
-
-			<div  class="postbox " >
-			<div class="handlediv" title="<?php __('Click to toggle'); ?>"><br /></div><h3 class='hndle'><span><?php _e ( 'Images size', 'dbem' ); ?> </span></h3>
-			<div class="inside">
-				<table class='form-table'>
-					<?php
-					dbem_options_input_text ( __( 'Maximum width (px)', 'dbem' ), 'dbem_image_max_width', __( 'The maximum allowed width for images uploades', 'dbem' ) );
-					dbem_options_input_text ( __( 'Maximum height (px)', 'dbem' ), 'dbem_image_max_height', __( "The maximum allowed height for images uploaded, in pixels", 'dbem' ) );
-					dbem_options_input_text ( __( 'Maximum size (bytes)', 'dbem' ), 'dbem_image_max_size', __( "The maximum allowed size for images uploaded, in pixels", 'dbem' ) );
-					?>
-				</table> 
-			</div> <!-- . inside -->
 			</div> <!-- .postbox -->
             
 			<p class="submit">
