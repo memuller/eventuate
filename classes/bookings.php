@@ -173,8 +173,8 @@ class EM_Bookings extends EM_Object{
 	 */
 
         function replace_shortcodes($text){
-          global $EM_Event ;
-          $EM_Payment = new Payment($EM_Event->id) ;
+          global $EM_Event, $EM_Booking ;
+          $EM_Payment = new Payment($EM_Booking->id) ;
           $placeholders = array(
             '#_RESPNAME' =>  '#_BOOKINGNAME',//Depreciated
             '#_RESPEMAIL' => '#_BOOKINGEMAIL',//Depreciated
@@ -208,14 +208,17 @@ class EM_Bookings extends EM_Object{
           return $text ;
         }
         
-        function payment_reminder_email(){
-          global $EM_Event, $EM_Mailer, $EM_Person;
-          $EM_Person = new EM_Person($this->person_id) ;
-          $EM_Event = new EM_Event($this->event_id) ;
+        function payment_reminder_email($EM_Booking){
+          global $EM_Event, $EM_Mailer, $EM_Person , $EM_Booking; 
+          $EM_Person = new EM_Person($EM_Booking->person_id) ;
+          $EM_Event = new EM_Event($EM_Booking->event_id) ;
           $email_subject = __('Payment Reminder', 'dbem') ;
           $email_body = get_option('dbem_payment_reminder_email_body') ;
-          if ( $EM_Mailer.send($email_subject, $email_body, $EM_Person->email)) {
+          $email_body = $this->replace_shortcodes($email_body) ;
+          if ( $EM_Mailer->send($email_subject, $email_body, $EM_Person->email)) {
             _e('Email reminder was send successfully.', 'dbem'); 
+            echo $EM_Person->email ;
+            echo $email_body ; 
           } else {
             _e('There was an error while sending the reminder email.', 'dbem') ;
             print_r($EM_Mailer->errors) ;

@@ -205,9 +205,9 @@ function dbem_event_form( $title ) {
 																	?>
 																	<tr id='booking-<?php echo $EM_Booking->id ?>'>
 																		<td>
-																			<?php if($EM_Booking->comment) : ?>
-																			<img src='../wp-content/plugins/eventuate/includes/images/baloon.png' title='<?php _e('Comment:','dbem'); ?> <?php echo $EM_Booking->comment ?>' alt='comment'/>
-																			<?php endif; ?>
+																			<?php if( $EM_Booking->payment_status <> Payment::paid && $EM_Booking->payment_status <> Payment::complete ){?>
+                                                                                                                                                        <a href="<?php echo WP_PLUGIN_URL . '/eventuate/mail.php?id=' . $EM_Booking->id  ;?>" target="_blank"><img src='../wp-content/plugins/eventuate/includes/images/baloon.png' title='<?php _e('Send a payment reminder email','dbem'); ?>' alt='comment'/></a>
+																			<?php } ?>
 																			<a id='booking-check-<?php echo $EM_Booking->id ?>' class='bookingdelbutton'>X</a>
 																		</td>
 																		<td><a title='<?php echo $EM_Booking->person->email ?> - <?php echo $EM_Booking->person->phone ?>'><?php echo $EM_Booking->person->name ?></a></td>
