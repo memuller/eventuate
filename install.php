@@ -212,7 +212,7 @@ function em_add_options() {
 		'dbem_rss_title_format' => "#_NAME",
 		'dbem_gmap_is_active'=> 1,
 		'dbem_default_contact_person' => 1,
-		'dbem_rsvp_mail_notify_is_active' => 0 ,
+		'dbem_rsvp_mail_notify_is_active' => 1 ,
         'dbem_payment_reminder_email_body' => __(str_replace("<br/>", "\n\r", $payment_reminder_email_body_localizable)),
         'dbem_contactperson_email_body' => __(str_replace("<br/>", "\n\r", $contact_person_email_body_localizable)),
 		'dbem_respondent_email_body' => __(str_replace("<br/>", "\n\r", $respondent_email_body_localizable)),
