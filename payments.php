@@ -35,6 +35,6 @@
 				break;
 			}
 	} else {
-		require('views/payment_page.php') ;
+		require('views/payment_return_page.php') ;
 	} 
 ?>
