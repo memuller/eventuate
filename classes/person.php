@@ -95,6 +95,10 @@ class EM_Person extends EM_Object{
 		}
 		return true;
 	}
+
+        function full_address(){
+          return $this->address . ' ' . $this->num . ' ' . $this->compl . ', ' . $this->district . ' - ' . $this->city . ' - ' . $this->zip ;
+        }
 	
 	/**
 	 * Checks agains the database to see if this user exists already

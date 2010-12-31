@@ -30,26 +30,28 @@ function em_printable_booking_report() {
 		</head>
 		<body id="printable">
 			<div id="container">
-			<h1>Bookings for <?php echo $EM_Event->name; ?></h1>
+                        <h1><?php _e('Bookings for', 'dbem') ;?> <?php echo $EM_Event->name; ?></h1>
 			<p><?php echo $EM_Event->output("#d #M #Y"); ?></p>
-			<p><?php echo $EM_Event->output("#_LOCATION, #_ADDRESS, #_TOWN"); ?></p>
+                        <p><?php echo $EM_Event->output("#_LOCATION, #_ADDRESS, #_TOWN"); ?></p>
+                        <p><?php echo __('Cost', 'dbem') . ': ' . $EM_Event->cost ; ?> </p>
 			<h2><?php _e('Bookings data', 'dbem');?></h2>
 			<table id="bookings-table">
 				<tr>
 					<th scope='col'><?php _e('Name', 'dbem')?></th>
 					<th scope='col'><?php _e('E-mail', 'dbem')?></th>
-					<th scope='col'><?php _e('Phone number', 'dbem')?></th>
-					<th scope='col'><?php _e('Seats', 'dbem')?></th>
-					<th scope='col'><?php _e('Comment', 'dbem')?></th>
+                                        <th scope='col'><?php _e('Phone number', 'dbem')?></th>	
+                                        <th scope='col'><?php _e('Address', 'dbem')?></th>
+					<th scope='col'><?php _e('Payment status', 'dbem')?></th>
 				</tr>
 				<?php foreach($EM_Event->get_bookings()->bookings as $EM_Booking) {       ?>
 				<tr>
 
 					<td><?php echo $EM_Booking->person->name ?></td>
 					<td><?php echo $EM_Booking->person->email ?></td>
-					<td><?php echo $EM_Booking->person->phone ?></td>
-					<td class='seats-number'><?php echo $EM_Booking->seats ?></td>
-					<td><?php echo $EM_Booking->comment ?></td>
+                                        <td><?php echo $EM_Booking->person->phone ?></td>
+                                        <td><?php echo $EM_Booking->person->full_address() ;?></td>
+                                        <td><?php echo $EM_Booking->payment_status_string() ; ?></td>
+				</tr>
 				</tr>
 			   	<?php } ?>
 			  	<tr id='booked-seats'>
