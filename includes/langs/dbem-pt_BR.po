@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: events-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-07 19:11+0100\n"
-"PO-Revision-Date: 2010-12-09 03:10-0300\n"
+"PO-Revision-Date: 2010-12-31 20:53-0300\n"
 "Last-Translator: Matheus Elias Muller <hello@memuller.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,15 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: .\n"
+
+msgid "Bookings for"
+msgstr "Reservas para"
+
+msgid "Cost"
+msgstr "Custo"
+
+msgid "Payment status"
+msgstr "Status do pagamento"
 
 msgid "Paid spaces"
 msgstr "Pagantes"
@@ -46,9 +55,6 @@ msgstr "Bairro"
 
 msgid "City"
 msgstr "Cidade"
-
-msgid "UF"
-msgid "Estado"
 
 msgid "Zip"
 msgstr "CEP"
