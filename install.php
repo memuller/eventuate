@@ -53,6 +53,7 @@ function em_create_events_table() {
 		event_rsvp bool NOT NULL DEFAULT 1,
 		event_seats int(5),
 		event_cost float DEFAULT NULL,
+		event_rsvp_closing_date int(5) DEFAULT 5,
 		event_contactperson_id bigint(20) unsigned NULL,
 		location_id bigint(20) unsigned NOT NULL,
 		recurrence_id bigint(20) unsigned NULL,

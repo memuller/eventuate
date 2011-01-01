@@ -166,6 +166,15 @@ function dbem_event_form( $title ) {
 											<?php echo __("Booking cost:", 'dbem')." R$"; ?>
 											<input id='rsvp-cost' name='event_cost' value='<?php echo $EM_Event->cost ?>' size='5'/>
 										</p>
+										<p>
+											<?php _e ( 'Spaces','dbem' ); ?> :
+											<input id="seats-input" type="text" name="event_seats" size='5' value="<?php echo $EM_Event->seats ?>" />
+										</p>
+										<p>
+											<?php echo __("Close reservations", 'dbem'). ': '; ?>
+											<input id='rsvp-closing-date' name='event_rsvp_closing_date' value='<?php echo $EM_Event->rsvp_closing_date ; ?>' size='2'/>
+											<?php echo __("days before the event", 'dbem') ; ?>
+										</p>
 									<?php } ?>
 									<div id='rsvp-data'>
 										<?php
@@ -175,10 +184,6 @@ function dbem_event_form( $title ) {
 											$selected = '0';
 										}
 										?>
-										<p>
-											<?php _e ( 'Spaces','dbem' ); ?> :
-											<input id="seats-input" type="text" name="event_seats" size='5' value="<?php echo $EM_Event->seats ?>" />
-										</p>
 										<!-- START RSVP Stats -->
 										<?php
 											if ($EM_Event->rsvp ) {
