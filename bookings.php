@@ -63,8 +63,15 @@ function em_add_booking_form() {
 				$payment = new Payment($current_booking_id) ; 
 				$payment->invite_link();
 				return ob_get_clean(); 
-			} else { 
-				include('views/booking_form.php');
+			} else {
+				$days_as_seconds = $EM_Event->rsvp_closing_date * 24 * 60 * 60 ;
+				$start_date_as_timestamp = strtotime($EM_Event->start_date) ;
+				if (($start_date_as_timestamp - $days_as_seconds) > time() ) {
+					include('views/booking_form.php');
+				} else {
+					include('views/registration_closed.php') ; 
+				}
+				
 			
 
 			return ob_get_clean();} } 
